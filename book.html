@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CROSSFIRE · Book a Session · Lock In Your Squad</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' rx='9' fill='%23E63946'/%3E%3Ccircle cx='18' cy='18' r='12' stroke='%23FFFFFF' stroke-width='2' fill='none' stroke-opacity='0.5' stroke-dasharray='3 2'/%3E%3Cline x1='18' y1='3' x2='18' y2='9' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='18' y1='27' x2='18' y2='33' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='3' y1='18' x2='9' y2='18' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='27' y1='18' x2='33' y2='18' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='18' r='4.5' fill='%23FFFFFF'/%3E%3Ccircle cx='18' cy='18' r='2' fill='%23E63946'/%3E%3C/svg%3E" />
+
+  <!-- Tailwind + fallback -->
+  <script src="tailwind.js"></script>
+  <script>
+    if (typeof tailwind === 'undefined') {
+      document.write('<script src="https://cdn.tailwindcss.com"><\/script>');
+    }
+  </script>
+
+  <!-- Prevent theme flash -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
+  <!-- Tailwind config -->
+  <script>
+    window.tailwind = window.tailwind || {};
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            porcelain: '#FFFFFF',
+            arena: '#0B0F14',
+            ember: '#E63946',
+            flare: '#F4A261',
+            neon: '#2A9D8F',
+            sand: '#E9C46A',
+            ash: '#1E2A32',
+            smoke: '#F5F7FA',
+            steel: '#3A4A57',
+            fuchsia: '#D90429',
+          },
+          fontFamily: {
+            'display': ['"Bebas Neue"', 'sans-serif'],
+            'body': ['"Inter"', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'float-slow': 'floatSlow 7s ease-in-out infinite',
+            'pulse-soft': 'pulseSoft 4s ease-in-out infinite',
+            'fade-up': 'fadeUp 0.8s ease-out',
+            'shimmer': 'shimmer 2.8s infinite',
+            'pop': 'pop 0.3s ease-out',
+            'slide-in-right': 'slideInRight 0.8s ease-out',
+            'zoom-in-out': 'zoomInOut 1.2s ease-out',
+            'ping-slow': 'pingSlow 3s cubic-bezier(0, 0, 0.2, 1) infinite',
+          },
+          keyframes: {
+            floatSlow: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-8px)' } },
+            pulseSoft: { '0%, 100%': { opacity: '0.8' }, '50%': { opacity: '1' } },
+            fadeUp: { '0%': { transform: 'translateY(28px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+            shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+            pop: { '0%': { transform: 'scale(0.9)', opacity: '0' }, '100%': { transform: 'scale(1)', opacity: '1' } },
+            slideInRight: { '0%': { transform: 'translateX(60px)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } },
+            zoomInOut: { '0%': { transform: 'scale(0.92)', opacity: '0.8' }, '100%': { transform: 'scale(1)', opacity: '1' } },
+            pingSlow: { '0%': { transform: 'scale(1)', opacity: '0.6' }, '75%, 100%': { transform: 'scale(1.8)', opacity: '0' } },
+          },
+        }
+      }
+    };
+  </script>
+
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+  <style>
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    body {
+      background-color: #F8FAFC;
+      color: #0F172A;
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .dark body {
+      background-color: #0B0F14;
+      color: #F5F7FA;
+    }
+    body::-webkit-scrollbar { width: 6px; }
+    body::-webkit-scrollbar-track { background: #E2E8F0; }
+    .dark body::-webkit-scrollbar-track { background: #1E2A32; }
+    body::-webkit-scrollbar-thumb { background: #E63946; border-radius: 20px; }
+
+    /* ===== BUTTONS ===== */
+    .btn-ember {
+      background: #E63946;
+      color: #FFFFFF;
+      font-weight: 700;
+      border-radius: 6px 20px 6px 20px;
+      transition: all 0.35s;
+      box-shadow: 0 4px 14px rgba(230,57,70,0.35);
+      letter-spacing: 0.5px;
+    }
+    .btn-ember:hover {
+      background: #D90429;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(230,57,70,0.55);
+      border-radius: 20px 6px 20px 6px;
+    }
+    .btn-ghost-arena {
+      border: 1.5px solid rgba(230,57,70,0.6);
+      color: #E63946;
+      background: transparent;
+      border-radius: 6px 20px 6px 20px;
+      font-weight: 600;
+      transition: all 0.35s;
+    }
+    .dark .btn-ghost-arena {
+      color: #F4A261;
+    }
+    .btn-ghost-arena:hover {
+      background: #E63946;
+      color: #FFFFFF;
+      border-color: #E63946;
+      border-radius: 20px 6px 20px 6px;
+    }
+
+    /* ===== NAV ===== */
+    .nav-link {
+      position: relative;
+      font-weight: 600;
+      transition: color 0.25s;
+      text-decoration: none !important;
+      color: #334155;
+      white-space: nowrap;
+    }
+    .dark .nav-link {
+      color: #F1F5F9;
+    }
+    .nav-link:hover {
+      color: #E63946 !important;
+    }
+    .nav-link.active {
+      color: #E63946 !important;
+      font-weight: 700;
+    }
+
+    .dropdown-arena {
+      position: relative;
+    }
+    .dropdown-arena-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 200px;
+      background: #FFFFFF;
+      border-radius: 12px 24px 12px 24px;
+      padding: 0.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.25s ease;
+      z-index: 1000;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+    }
+    .dark .dropdown-arena-menu {
+      background: #1E2A32;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.6);
+      border: 1px solid rgba(230,57,70,0.3);
+    }
+    .dropdown-arena::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 12px;
+    }
+    .dropdown-arena:hover .dropdown-arena-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .dropdown-item-arena {
+      display: flex;
+      align-items: center;
+      padding: 0.65rem 1.25rem;
+      transition: all 0.2s;
+      color: #334155;
+      font-size: 0.92rem;
+      font-weight: 500;
+      border-radius: 8px 16px 8px 16px;
+      margin: 0.15rem 0;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .dark .dropdown-item-arena {
+      color: #F1F5F9;
+    }
+    .dropdown-item-arena:hover {
+      background: rgba(230, 57, 70, 0.1);
+      color: #E63946;
+      padding-left: 1.5rem;
+    }
+    .dark .dropdown-item-arena:hover {
+      background: rgba(230, 57, 70, 0.18);
+      color: #F4A261;
+      padding-left: 1.5rem;
+    }
+
+    /* ===== MOBILE MENU ===== */
+    .mobile-menu-arena {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .dark .mobile-menu-arena {
+      background: #1E2A32;
+      border-bottom-color: rgba(230,57,70,0.25);
+    }
+    .mobile-menu-arena.open { max-height: 85vh; overflow-y: auto; }
+
+    /* ===== SOCIAL ===== */
+    .social-icon-arena {
+      width: 40px; height: 40px;
+      border-radius: 8px 16px 8px 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(42, 157, 143, 0.15);
+      color: #F5F7FA;
+      transition: all 0.3s;
+    }
+    .social-icon-arena:hover {
+      background: #E63946;
+      color: #FFFFFF;
+      transform: translateY(-3px) rotate(3deg);
+    }
+
+    /* RTL */
+    [dir="rtl"] .ml-auto { margin-left: 0 !important; margin-right: auto !important; }
+    [dir="rtl"] .ms-1 { margin-left: 0 !important; margin-right: 0.25rem !important; }
+    [dir="rtl"] .dropdown-arena-menu { left: auto; right: 0; }
+    [dir="rtl"] .dropdown-item-arena i { margin-right: 0; margin-left: 0.75rem; }
+
+    /* ============================================================
+       BOOK A SESSION – UNIQUE STYLES
+       ============================================================ */
+
+    /* ----- Hero ----- */
+        .booking-hero .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.28;
+      filter: brightness(0.4) saturate(1.2);
+      z-index: 1;
+      pointer-events: none;
+    }
+.booking-hero {
+      position: relative;
+      padding: 8rem 1.5rem 4rem;
+      background: #0B0F14;
+      overflow: hidden;
+    }
+    .booking-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 40%, rgba(230,57,70,0.16) 0%, transparent 50%),
+        radial-gradient(circle at 80% 60%, rgba(42,157,143,0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .booking-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(230,57,70,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(230,57,70,0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 1;
+      mask-image: radial-gradient(ellipse at center, black 25%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 75%);
+    }
+
+    /* ----- Step Indicator ----- */
+    .step-indicator {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0;
+      max-width: 520px;
+      margin: 0 auto 3rem;
+      padding: 0 1rem;
+      position: relative;
+    }
+
+    .step-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      flex: 1;
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+      transition: transform 0.25s ease;
+    }
+    .step-node:hover:not(.active) {
+      transform: translateY(-2px);
+    }
+
+    .step-node .step-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px 6px 14px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      background: #FFFFFF;
+      color: #64748B;
+      border: 2px solid #E2E8F0;
+      box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 2;
+    }
+    .dark .step-node .step-circle {
+      background: #1E2A32;
+      color: #94A3B8;
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Hover State (Inactive) */
+    .step-node:hover:not(.active):not(.completed) .step-circle {
+      border-color: #E63946;
+      color: #E63946;
+      box-shadow: 0 6px 16px -2px rgba(230, 57, 70, 0.25);
+    }
+    .dark .step-node:hover:not(.active):not(.completed) .step-circle {
+      border-color: rgba(230, 57, 70, 0.6);
+      color: #FF6B7A;
+      box-shadow: 0 6px 18px -2px rgba(230, 57, 70, 0.35);
+    }
+
+    /* Active State */
+    .step-node.active .step-circle {
+      background: linear-gradient(135deg, #E63946 0%, #D90429 100%);
+      color: #FFFFFF;
+      border-color: #E63946;
+      box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.2), 0 8px 20px -2px rgba(230, 57, 70, 0.45);
+      transform: scale(1.06);
+    }
+
+    /* Completed State */
+    .step-node.completed .step-circle {
+      background: linear-gradient(135deg, #2A9D8F 0%, #1F7A6F 100%);
+      color: #FFFFFF;
+      border-color: #2A9D8F;
+      box-shadow: 0 4px 14px -2px rgba(42, 157, 143, 0.35);
+    }
+
+    /* Connector Line */
+    .step-connector {
+      flex: 1;
+      height: 3px;
+      background: #E2E8F0;
+      margin: 22px -10px 0;
+      position: relative;
+      z-index: 1;
+      border-radius: 9999px;
+      overflow: hidden;
+      transition: background 0.35s ease;
+    }
+    .dark .step-connector {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .step-connector.completed {
+      background: #2A9D8F;
+    }
+
+    /* Labels */
+    .step-node .step-label {
+      margin-top: 0.75rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      color: #64748B;
+      transition: color 0.3s ease, font-weight 0.3s ease;
+      text-align: center;
+    }
+    .dark .step-node .step-label {
+      color: #94A3B8;
+    }
+    .step-node.active .step-label {
+      color: #E63946;
+      font-weight: 800;
+    }
+    .dark .step-node.active .step-label {
+      color: #FF5A67;
+    }
+    .step-node.completed .step-label {
+      color: #2A9D8F;
+    }
+    .dark .step-node.completed .step-label {
+      color: #38B2AC;
+    }
+
+    @media (max-width: 640px) {
+      .step-indicator {
+        max-width: 380px;
+        margin-bottom: 2rem;
+      }
+      .step-node .step-circle {
+        width: 42px;
+        height: 42px;
+        font-size: 0.9rem;
+        border-radius: 12px 4px 12px 4px;
+      }
+      .step-connector {
+        margin: 19px -8px 0;
+        height: 2.5px;
+      }
+      .step-node .step-label {
+        font-size: 0.65rem;
+        letter-spacing: 1px;
+        margin-top: 0.5rem;
+      }
+    }
+
+    /* ----- Booking Card ----- */
+    .booking-card {
+      background: #FFFFFF;
+      border-radius: 24px 6px 24px 6px;
+      border: 1px solid rgba(226,232,240,0.9);
+      box-shadow: 0 20px 50px -20px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+    .dark .booking-card {
+      background: #1E2A32;
+      border-color: rgba(230,57,70,0.25);
+      box-shadow: 0 24px 60px -20px rgba(0,0,0,0.7);
+    }
+
+    /* ----- Form Inputs ----- */
+    .form-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748B;
+      margin-bottom: 0.5rem;
+    }
+    .dark .form-label { color: #94A3B8; }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border-radius: 10px 4px 10px 4px;
+      border: 1.5px solid rgba(226,232,240,0.9);
+      background: #F8FAFC;
+      color: #0F172A;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.25s;
+      outline: none;
+    }
+    .dark .form-input, .dark .form-select, .dark .form-textarea {
+      background: #0B0F14;
+      border-color: rgba(230,57,70,0.25);
+      color: #F5F7FA;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: #E63946;
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(230,57,70,0.12);
+    }
+    .dark .form-input:focus, .dark .form-select:focus, .dark .form-textarea:focus {
+      background: #111A22;
+      border-color: #E63946;
+      box-shadow: 0 0 0 3px rgba(230,57,70,0.2);
+    }
+    .form-textarea { resize: vertical; min-height: 100px; }
+
+    /* ----- Selectable Zone Card ----- */
+    .select-zone {
+      position: relative;
+      border-radius: 14px 4px 14px 4px;
+      border: 2px solid rgba(226,232,240,0.9);
+      background: #F8FAFC;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      overflow: hidden;
+    }
+    .dark .select-zone {
+      background: #0B0F14;
+      border-color: rgba(230,57,70,0.2);
+    }
+    .select-zone:hover {
+      border-color: rgba(230,57,70,0.5);
+      transform: translateY(-2px);
+    }
+    .select-zone.selected {
+      border-color: #E63946;
+      background: rgba(230,57,70,0.05);
+      box-shadow: 0 0 0 3px rgba(230,57,70,0.12);
+    }
+    .dark .select-zone.selected {
+      background: rgba(230,57,70,0.1);
+    }
+    .select-zone .zone-check {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(226,232,240,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+      color: transparent;
+      font-size: 0.6rem;
+      transition: all 0.25s;
+    }
+    .dark .select-zone .zone-check {
+      background: #1E2A32;
+      border-color: rgba(230,57,70,0.3);
+    }
+    .select-zone.selected .zone-check {
+      background: #E63946;
+      border-color: #E63946;
+      color: #FFFFFF;
+    }
+    [dir="rtl"] .select-zone .zone-check { right: auto; left: 0.75rem; }
+
+    /* ----- Time Slot ----- */
+    .time-slot {
+      padding: 0.6rem 0.5rem;
+      border-radius: 8px 3px 8px 3px;
+      border: 1.5px solid rgba(226,232,240,0.9);
+      background: #F8FAFC;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #475569;
+    }
+    .dark .time-slot {
+      background: #0B0F14;
+      border-color: rgba(230,57,70,0.2);
+      color: #CBD5E1;
+    }
+    .time-slot:hover { border-color: #E63946; color: #E63946; }
+    .time-slot.selected {
+      background: #E63946;
+      border-color: #E63946;
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px -2px rgba(230,57,70,0.4);
+    }
+    .time-slot.disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+    .time-slot.disabled:hover {
+      border-color: rgba(226,232,240,0.9);
+      color: #475569;
+    }
+    .dark .time-slot.disabled:hover {
+      border-color: rgba(230,57,70,0.2);
+      color: #CBD5E1;
+    }
+
+    /* ----- Summary Panel ----- */
+    .summary-panel {
+      background: #0B0F14;
+      border-radius: 24px 6px 24px 6px;
+      border: 1px solid rgba(230,57,70,0.25);
+      color: #F5F7FA;
+      position: relative;
+      overflow: hidden;
+    }
+    .summary-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 80% 10%, rgba(230,57,70,0.2) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .summary-panel .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.08);
+      font-size: 0.82rem;
+    }
+    .summary-panel .summary-row:last-child { border-bottom: none; }
+    .summary-panel .summary-label {
+      color: #94A3B8;
+      font-weight: 500;
+    }
+    .summary-panel .summary-value {
+      color: #F5F7FA;
+      font-weight: 700;
+    }
+    .summary-panel .summary-value.ember { color: #E63946; }
+    .summary-panel .total-row {
+      border-top: 1px solid rgba(230,57,70,0.3);
+      border-bottom: none;
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ----- Confirmation Modal ----- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11,15,20,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.35s;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-box {
+      background: #FFFFFF;
+      border-radius: 28px 8px 28px 8px;
+      max-width: 480px;
+      width: 100%;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transform: scale(0.92);
+      transition: transform 0.35s;
+      border: 1px solid rgba(226,232,240,0.9);
+      box-shadow: 0 40px 80px -20px rgba(0,0,0,0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    .dark .modal-box {
+      background: #1E2A32;
+      border-color: rgba(230,57,70,0.3);
+    }
+    .modal-overlay.open .modal-box {
+      transform: scale(1);
+    }
+    .modal-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #E63946, #F4A261, #E63946);
+      background-size: 200% 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    /* Hidden step */
+    .booking-step { display: none; }
+    .booking-step.active { display: block; animation: fadeUp 0.4s ease-out; }
+
+    /* Progress bar */
+    .progress-track {
+      height: 4px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 1.5rem;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #E63946, #F4A261);
+      border-radius: 20px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    /* ===== FAQ ITEM ===== */
+    .faq-item {
+      background: #FFFFFF;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+      transition: all 0.3s;
+    }
+    .dark .faq-item {
+      background: #1E2A32;
+      border-color: rgba(230,57,70,0.25);
+      box-shadow: 0 8px 24px -6px rgba(0,0,0,0.4);
+    }
+    .faq-item:hover {
+      border-color: rgba(230,57,70,0.5);
+    }
+
+    .text-balance { text-wrap: balance; }
+    .glow-ember { text-shadow: 0 0 30px rgba(230,57,70,0.5); }
+  </style>
+</head>
+<body>
+
+<!-- ======== NAVIGATION (EXACT COPY) ======== -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-[#0B0F14]/95 backdrop-blur-md border-b border-slate-200/90 dark:border-ember/20 shadow-sm dark:shadow-[0_4px_25px_rgba(0,0,0,0.4)] transition-colors duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20 md:h-22 gap-4">
+
+      <a href="index.html" class="flex items-center gap-2.5 shrink-0 group">
+        <div class="w-10 h-10 bg-gradient-to-br from-ember to-[#D90429] rounded-xl flex items-center justify-center shadow-md shadow-ember/30 group-hover:scale-105 transition-all duration-300">
+          <svg viewBox="0 0 40 40" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="16" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.4" stroke-dasharray="4 2"/>
+            <line x1="20" y1="4" x2="20" y2="10" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="20" y1="30" x2="20" y2="36" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="4" y1="20" x2="10" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="30" y1="20" x2="36" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M20 12C15.6 12 12 15.6 12 20C12 22.8 13.4 25.2 15.6 26.6L20 30L24.4 26.6C26.6 25.2 28 22.8 28 20C28 15.6 24.4 12 20 12Z" fill="#FFFFFF"/>
+            <path d="M14.5 19C14.5 17.5 16 16.5 20 16.5C24 16.5 25.5 17.5 25.5 19C25.5 20.5 24 21 20 21C16 21 14.5 20.5 14.5 19Z" fill="#E63946"/>
+            <circle cx="13" cy="13" r="1.5" fill="#F4A261"/>
+            <circle cx="27" cy="14" r="1.2" fill="#F4A261"/>
+            <circle cx="26" cy="27" r="1.3" fill="#F4A261"/>
+          </svg>
+        </div>
+        <span class="text-xl md:text-2xl font-display font-extrabold tracking-wider text-slate-900 dark:text-white leading-none">
+          CROSS<span class="text-ember">FIRE</span>
+        </span>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-5 xl:gap-7">
+        <div class="dropdown-arena relative group/nav">
+          <a href="index.html" class="nav-link flex items-center gap-1 py-2 text-[15px] font-semibold whitespace-nowrap">
+            <span>Home</span>
+            <i class="fas fa-chevron-down text-[10px] opacity-70 group-hover/nav:rotate-180 transition-transform duration-200"></i>
+          </a>
+          <div class="dropdown-arena-menu">
+            <a class="dropdown-item-arena" href="index.html">Home 1</a>
+            <a class="dropdown-item-arena" href="home2.html">Home 2</a>
+          </div>
+        </div>
+
+        <a class="nav-link whitespace-nowrap text-[15px]" href="about.html">About</a>
+        <a class="nav-link whitespace-nowrap text-[15px]" href="zones.html">Zones</a>
+        <a class="nav-link active whitespace-nowrap text-[15px]" href="book.html">Book a Session</a>
+        <a class="nav-link whitespace-nowrap text-[15px]" href="packages.html">Packages</a>
+        <a class="nav-link whitespace-nowrap text-[15px]" href="contact.html">Contact</a>
+
+        <div class="dropdown-arena relative group/nav">
+          <button class="nav-link flex items-center gap-1 py-2 text-[15px] font-semibold whitespace-nowrap cursor-pointer">
+            <span>Portal</span>
+            <i class="fas fa-chevron-down text-[10px] opacity-70 group-hover/nav:rotate-180 transition-transform duration-200"></i>
+          </button>
+          <div class="dropdown-arena-menu">
+            <a class="dropdown-item-arena" href="client.html">Player Dashboard</a>
+            <a class="dropdown-item-arena" href="admin.html">Admin Dashboard</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <a href="login.html" class="hidden sm:inline-flex btn-ember h-10 px-5 text-sm items-center justify-center gap-2 whitespace-nowrap shadow-md">
+          <i class="fas fa-user-circle"></i> <span>Login</span>
+        </a>
+        <button id="theme-toggle" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-ember/20 text-slate-700 dark:text-ember hover:bg-slate-200 dark:hover:bg-ember/30 hover:scale-105 transition-all flex items-center justify-center border border-slate-200 dark:border-ember/30 cursor-pointer" aria-label="Toggle theme">
+          <i class="fas fa-moon dark:hidden text-sm"></i>
+          <i class="fas fa-sun hidden dark:inline text-sm"></i>
+        </button>
+        <button id="rtl-toggle" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-ember/20 text-slate-700 dark:text-ember hover:bg-slate-200 dark:hover:bg-ember/30 hover:scale-105 transition-all flex items-center justify-center font-bold text-sm border border-slate-200 dark:border-ember/30 cursor-pointer" aria-label="Toggle RTL">
+          ⇄
+        </button>
+        <button id="mobile-toggle" class="lg:hidden w-10 h-10 rounded-xl bg-ember text-white flex items-center justify-center shadow-md shrink-0 hover:bg-ember/90 transition cursor-pointer" aria-label="Toggle navigation">
+          <i class="fas fa-bars text-sm"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="mobile-menu-arena lg:hidden rounded-b-3xl">
+      <div class="py-4 px-3 space-y-1">
+        <div class="py-1">
+          <button onclick="document.getElementById('home-mobile-drop').classList.toggle('hidden'); document.getElementById('home-mobile-icon').classList.toggle('rotate-180')" class="w-full flex items-center justify-between py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition cursor-pointer">
+            <span>Home</span>
+            <i id="home-mobile-icon" class="fas fa-chevron-down text-xs opacity-60 transition-transform duration-300"></i>
+          </button>
+          <div id="home-mobile-drop" class="hidden pl-2 space-y-1 mt-1 mb-2">
+            <a class="block py-2.5 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="index.html">Home 1</a>
+            <a class="block py-2.5 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="home2.html">Home 2</a>
+          </div>
+        </div>
+        <a class="block py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="about.html">About</a>
+        <a class="block py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="zones.html">Zones</a>
+        <a class="block py-3 px-4 font-semibold text-ember border-l-4 border-ember bg-ember/10 rounded-lg transition whitespace-nowrap" href="book.html">Book a Session</a>
+        <a class="block py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="packages.html">Packages</a>
+        <a class="block py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="contact.html">Contact</a>
+
+        <div class="py-1">
+          <button onclick="document.getElementById('portal-mobile-drop').classList.toggle('hidden'); document.getElementById('portal-mobile-icon').classList.toggle('rotate-180')" class="w-full flex items-center justify-between py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition cursor-pointer">
+            <span>Portal</span>
+            <i id="portal-mobile-icon" class="fas fa-chevron-down text-xs opacity-60 transition-transform duration-300"></i>
+          </button>
+          <div id="portal-mobile-drop" class="hidden pl-2 space-y-1 mt-1 mb-2">
+            <a class="block py-2.5 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="client.html">Player Dashboard</a>
+            <a class="block py-2.5 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="admin.html">Admin Dashboard</a>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-3 pt-5 mt-3 border-t border-slate-200 dark:border-ember/20">
+          <a class="text-center btn-ember h-10 font-semibold flex items-center justify-center gap-2" href="login.html">
+            <i class="fas fa-user-circle"></i> Login
+          </a>
+          <div class="flex gap-3">
+            <button id="mobile-theme-toggle" class="flex-1 h-10 rounded-xl bg-slate-100 dark:bg-ember/20 text-slate-700 dark:text-ember text-sm font-semibold flex items-center gap-2 justify-center border border-slate-200 dark:border-ember/30">
+              <i class="fas fa-moon dark:hidden"></i><i class="fas fa-sun hidden dark:inline"></i> Theme
+            </button>
+            <button id="mobile-rtl-toggle" class="flex-1 h-10 rounded-xl bg-slate-100 dark:bg-ember/20 text-slate-700 dark:text-ember text-sm font-semibold flex items-center gap-2 justify-center border border-slate-200 dark:border-ember/30">
+              ⇄ RTL
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ======== BOOKING HERO ======== -->
+<section class="booking-hero pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20">
+  <img src="assets/zone-urban.jpg" alt="Book a Paintball Session" class="hero-bg-img" />
+  <div class="max-w-4xl mx-auto relative z-10 text-center">
+    <span class="inline-flex items-center gap-2 bg-ember/20 text-ember px-4 py-1.5 rounded-lg text-xs font-bold tracking-widest uppercase mb-6 border border-ember/30 backdrop-blur-sm">
+      <i class="fas fa-calendar-check text-ember"></i> Secure Your Slot
+    </span>
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold leading-[1.08] mb-5 text-white break-words text-balance">
+      Lock in your <span class="text-ember glow-ember">squad</span>
+    </h1>
+    <p class="text-base sm:text-lg text-slate-300 font-light max-w-2xl mx-auto leading-relaxed mb-8">
+      Three quick steps. Pick your zone, choose a time, and gear up. We'll handle the rest — gear, referees, and the adrenaline.
+    </p>
+    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8">
+      <a href="#step-indicator" class="btn-ember px-8 py-3.5 text-sm inline-flex items-center justify-center gap-2 shadow-xl w-full sm:w-auto">
+        <i class="fas fa-calendar-check"></i> Book Now
+      </a>
+      <a href="packages.html" class="btn-ghost-arena px-8 py-3.5 text-sm inline-flex items-center justify-center gap-2 w-full sm:w-auto">
+        <i class="fas fa-gift"></i> View Packages
+      </a>
+    </div>
+    <div class="flex flex-wrap items-center justify-center gap-6 text-slate-400 text-xs font-semibold pt-6 max-w-xl mx-auto">
+      <div class="flex items-center gap-2"><i class="fas fa-shield-halved text-ember"></i> Gear Included</div>
+      <div class="flex items-center gap-2"><i class="fas fa-clock text-ember"></i> Instant Confirmation</div>
+      <div class="flex items-center gap-2"><i class="fas fa-user-shield text-ember"></i> Free Cancellation 48h</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== BOOKING FORM / RESERVATION DESK ======== -->
+<section id="booking-section" class="py-16 sm:py-20 bg-slate-50 dark:bg-[#0B0F14] transition-colors duration-300 relative overflow-hidden">
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="max-w-6xl mx-auto">
+
+      <!-- Section Heading -->
+      <div class="text-center mb-10 sm:mb-12 animate-fade-up">
+        <span class="inline-flex items-center gap-2 text-ember px-0 py-1.5 text-xs font-bold uppercase tracking-[0.2em] mb-3">
+          <span class="w-8 h-px bg-ember"></span> Reservation Desk <span class="w-8 h-px bg-ember"></span>
+        </span>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-slate-900 dark:text-white leading-tight">
+          Book your <span class="text-ember">session</span>
+        </h2>
+        <p class="text-slate-600 dark:text-slate-300 mt-3 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+          Follow the steps below to choose your zone, select date &amp; squad time, and lock in your loadout.
+        </p>
+      </div>
+
+      <!-- Step Indicator -->
+      <div class="step-indicator animate-fade-up" id="step-indicator" role="navigation" aria-label="Booking Progress">
+        <div class="step-node active" data-step="1" role="button" tabindex="0" title="Step 1: Choose Zone">
+          <div class="step-circle"><i class="fas fa-crosshairs"></i></div>
+          <span class="step-label">Zone</span>
+        </div>
+        <div class="step-connector" id="connector-1"></div>
+        <div class="step-node" data-step="2" role="button" tabindex="0" title="Step 2: Pick Time">
+          <div class="step-circle"><i class="fas fa-calendar-day"></i></div>
+          <span class="step-label">Time</span>
+        </div>
+        <div class="step-connector" id="connector-2"></div>
+        <div class="step-node" data-step="3" role="button" tabindex="0" title="Step 3: Enter Details">
+          <div class="step-circle"><i class="fas fa-user-astronaut"></i></div>
+          <span class="step-label">Details</span>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8 items-start">
+
+        <!-- ===== FORM CARD (Left / Main) ===== -->
+        <div class="lg:col-span-2 booking-card animate-fade-up">
+          <div class="p-6 sm:p-8">
+
+            <!-- ============ STEP 1: ZONE ============ -->
+            <div class="booking-step active" data-step-content="1">
+              <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 dark:text-white mb-1">
+                Choose your <span class="text-ember">zone</span>
+              </h2>
+              <p class="text-slate-600 dark:text-slate-300 text-sm mb-6">Select the battlefield for your session.</p>
+
+              <div class="grid sm:grid-cols-2 gap-4" id="zone-options">
+                <!-- Zone: Speedball -->
+                <div class="select-zone" data-zone="Speedball Arena" data-price="45">
+                  <div class="zone-check"><i class="fas fa-check"></i></div>
+                  <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-lg bg-ember/10 text-ember flex items-center justify-center"><i class="fas fa-bolt"></i></div>
+                    <div>
+                      <h3 class="font-display font-bold text-slate-900 dark:text-white text-base">Speedball Arena</h3>
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Intermediate</span>
+                    </div>
+                  </div>
+                  <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">Fast-paced inflatable bunker field. Quick rounds.</p>
+                  <div class="mt-2 text-ember font-display font-extrabold text-lg">$45 <span class="text-[10px] font-body font-medium text-slate-400">/ player</span></div>
+                </div>
+
+                <!-- Zone: Urban Combat -->
+                <div class="select-zone" data-zone="Urban Combat CQB" data-price="55">
+                  <div class="zone-check"><i class="fas fa-check"></i></div>
+                  <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-lg bg-ember/10 text-ember flex items-center justify-center"><i class="fas fa-building"></i></div>
+                    <div>
+                      <h3 class="font-display font-bold text-slate-900 dark:text-white text-base">Urban Combat CQB</h3>
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-ember">Advanced</span>
+                    </div>
+                  </div>
+                  <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">Multi-level city with tight corners. Tactical.</p>
+                  <div class="mt-2 text-ember font-display font-extrabold text-lg">$55 <span class="text-[10px] font-body font-medium text-slate-400">/ player</span></div>
+                </div>
+
+                <!-- Zone: Woodland -->
+                <div class="select-zone" data-zone="Woodland Forest" data-price="40">
+                  <div class="zone-check"><i class="fas fa-check"></i></div>
+                  <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-lg bg-ember/10 text-ember flex items-center justify-center"><i class="fas fa-tree"></i></div>
+                    <div>
+                      <h3 class="font-display font-bold text-slate-900 dark:text-white text-base">Woodland Forest</h3>
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400">Beginner</span>
+                    </div>
+                  </div>
+                  <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">Natural cover and long-range engagements.</p>
+                  <div class="mt-2 text-ember font-display font-extrabold text-lg">$40 <span class="text-[10px] font-body font-medium text-slate-400">/ player</span></div>
+                </div>
+
+                <!-- Zone: Night Ops -->
+                <div class="select-zone" data-zone="Night Ops Tactical" data-price="65">
+                  <div class="zone-check"><i class="fas fa-check"></i></div>
+                  <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-lg bg-ember/10 text-ember flex items-center justify-center"><i class="fas fa-moon"></i></div>
+                    <div>
+                      <h3 class="font-display font-bold text-slate-900 dark:text-white text-base">Night Ops Tactical</h3>
+                      <span class="text-[10px] font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">Elite</span>
+                    </div>
+                  </div>
+                  <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">Low-light combat with tracer rounds.</p>
+                  <div class="mt-2 text-ember font-display font-extrabold text-lg">$65 <span class="text-[10px] font-body font-medium text-slate-400">/ player</span></div>
+                </div>
+              </div>
+
+              <div class="flex justify-end mt-8">
+                <button type="button" id="next-step-1" class="btn-ember px-8 py-3 text-sm inline-flex items-center gap-2 shadow-lg shadow-ember/30 cursor-pointer">
+                  Continue <i class="fas fa-arrow-right text-xs"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- ============ STEP 2: DATE & TIME ============ -->
+            <div class="booking-step" data-step-content="2">
+              <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 dark:text-white mb-1">
+                Pick a <span class="text-ember">time</span>
+              </h2>
+              <p class="text-slate-600 dark:text-slate-300 text-sm mb-6">Choose your session date and start time.</p>
+
+              <div class="grid sm:grid-cols-2 gap-5 mb-6">
+                <div>
+                  <label class="form-label" for="booking-date">Session Date</label>
+                  <input type="date" id="booking-date" class="form-input" />
+                </div>
+                <div>
+                  <label class="form-label" for="booking-players">Squad Size</label>
+                  <select id="booking-players" class="form-select">
+                    <option value="2">2 players</option>
+                    <option value="4">4 players</option>
+                    <option value="6" selected>6 players</option>
+                    <option value="8">8 players</option>
+                    <option value="10">10 players</option>
+                    <option value="12">12 players</option>
+                  </select>
+                </div>
+              </div>
+
+              <label class="form-label mb-2 block">Available Start Times</label>
+              <div class="grid grid-cols-3 sm:grid-cols-4 gap-2.5" id="time-slots">
+                <div class="time-slot" data-time="09:00">9:00 AM</div>
+                <div class="time-slot" data-time="10:30">10:30 AM</div>
+                <div class="time-slot" data-time="12:00">12:00 PM</div>
+                <div class="time-slot disabled" data-time="13:30">1:30 PM</div>
+                <div class="time-slot" data-time="15:00">3:00 PM</div>
+                <div class="time-slot" data-time="16:30">4:30 PM</div>
+                <div class="time-slot disabled" data-time="18:00">6:00 PM</div>
+                <div class="time-slot" data-time="19:30">7:30 PM</div>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-3"><i class="fas fa-info-circle mr-1"></i> Struck-through times are already booked. All times are local.</p>
+
+              <div class="flex items-center justify-between mt-8">
+                <button type="button" id="back-step-2" class="btn-ghost-arena px-6 py-3 text-sm inline-flex items-center gap-2">
+                  <i class="fas fa-arrow-left text-xs"></i> Back
+                </button>
+                <button type="button" id="next-step-2" class="btn-ember px-8 py-3 text-sm inline-flex items-center gap-2 shadow-lg shadow-ember/30 cursor-pointer">
+                  Continue <i class="fas fa-arrow-right text-xs"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- ============ STEP 3: DETAILS ============ -->
+            <div class="booking-step" data-step-content="3">
+              <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 dark:text-white mb-1">
+                Your <span class="text-ember">details</span>
+              </h2>
+              <p class="text-slate-600 dark:text-slate-300 text-sm mb-6">Almost there — tell us who's playing.</p>
+
+              <div class="grid sm:grid-cols-2 gap-5 mb-5">
+                <div>
+                  <label class="form-label" for="first-name">First Name *</label>
+                  <input type="text" id="first-name" class="form-input" placeholder="Jordan" required />
+                </div>
+                <div>
+                  <label class="form-label" for="last-name">Last Name *</label>
+                  <input type="text" id="last-name" class="form-input" placeholder="Reyes" required />
+                </div>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-5 mb-5">
+                <div>
+                  <label class="form-label" for="email">Email *</label>
+                  <input type="email" id="email" class="form-input" placeholder="jordan@email.com" required />
+                </div>
+                <div>
+                  <label class="form-label" for="phone">Phone *</label>
+                  <input type="tel" id="phone" class="form-input" placeholder="(555) 123-4567" required />
+                </div>
+              </div>
+
+              <div class="mb-5">
+                <label class="form-label" for="notes">Special Requests (optional)</label>
+                <textarea id="notes" class="form-textarea" placeholder="Birthday party, first-timers, gear sizes, etc."></textarea>
+              </div>
+
+              <label class="flex items-start gap-3 mb-6 cursor-pointer">
+                <input type="checkbox" id="waiver" class="mt-1 w-4 h-4 accent-ember" />
+                <span class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">I confirm all players will sign the safety waiver on arrival and agree to the arena rules. Players under 16 require a guardian on-site.</span>
+              </label>
+
+              <div class="flex items-center justify-between mt-8">
+                <button type="button" id="back-step-3" class="btn-ghost-arena px-6 py-3 text-sm inline-flex items-center gap-2">
+                  <i class="fas fa-arrow-left text-xs"></i> Back
+                </button>
+                <button type="button" id="submit-booking" class="btn-ember px-8 py-3 text-sm inline-flex items-center gap-2 shadow-lg shadow-ember/30 cursor-pointer">
+                  <i class="fas fa-check-circle"></i> Confirm Booking
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ===== LIVE SUMMARY PANEL (Right) ===== -->
+        <div class="lg:col-span-1 animate-fade-up" style="animation-delay: 0.15s;">
+          <div class="summary-panel p-6 sticky top-28">
+            <div class="relative z-10">
+              <div class="flex items-center gap-2 mb-4">
+                <div class="w-8 h-8 rounded-lg bg-ember/20 flex items-center justify-center">
+                  <i class="fas fa-receipt text-ember text-sm"></i>
+                </div>
+                <h3 class="font-display font-bold text-lg text-white">Your Loadout</h3>
+              </div>
+
+              <div class="summary-row">
+                <span class="summary-label">Zone</span>
+                <span class="summary-value" id="summary-zone">—</span>
+              </div>
+              <div class="summary-row">
+                <span class="summary-label">Date</span>
+                <span class="summary-value" id="summary-date">—</span>
+              </div>
+              <div class="summary-row">
+                <span class="summary-label">Time</span>
+                <span class="summary-value" id="summary-time">—</span>
+              </div>
+              <div class="summary-row">
+                <span class="summary-label">Squad Size</span>
+                <span class="summary-value" id="summary-players">—</span>
+              </div>
+              <div class="summary-row">
+                <span class="summary-label">Price / Player</span>
+                <span class="summary-value ember" id="summary-price">$0</span>
+              </div>
+              <div class="summary-row total-row">
+                <span class="summary-label font-bold text-white">Estimated Total</span>
+                <span class="summary-value ember text-xl font-display" id="summary-total">$0</span>
+              </div>
+
+              <div class="mt-5 p-3 rounded-lg bg-ember/10 border border-ember/20">
+                <p class="text-[11px] text-slate-300 leading-relaxed flex items-start gap-2">
+                  <i class="fas fa-shield-halved text-ember mt-0.5"></i>
+                  All bookings include full gear rental, safety briefing, and referee coverage. No hidden fees.
+                </p>
+              </div>
+
+              <!-- Mini progress -->
+              <div class="progress-track mt-5">
+                <div class="progress-fill" id="progress-fill"></div>
+              </div>
+              <p class="text-[10px] text-slate-500 mt-2 text-center uppercase tracking-widest font-bold" id="progress-label">Step 1 of 3</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== PERKS STRIP ======== -->
+<section class="py-16 bg-white dark:bg-[#0E141B] border-y border-slate-200/80 dark:border-ember/15 transition-colors duration-300">
+  <div class="container mx-auto px-6">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl bg-ember/10 text-ember flex items-center justify-center shrink-0"><i class="fas fa-shield-halved"></i></div>
+        <div>
+          <h4 class="font-display font-bold text-slate-900 dark:text-white text-base">Full Gear Rental</h4>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-1">Mask, vest, marker, and paint included.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl bg-ember/10 text-ember flex items-center justify-center shrink-0"><i class="fas fa-user-shield"></i></div>
+        <div>
+          <h4 class="font-display font-bold text-slate-900 dark:text-white text-base">Pro Referees</h4>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-1">Certified refs on every field, every match.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl bg-ember/10 text-ember flex items-center justify-center shrink-0"><i class="fas fa-calendar-xmark"></i></div>
+        <div>
+          <h4 class="font-display font-bold text-slate-900 dark:text-white text-base">Free Cancellation</h4>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-1">Cancel up to 48 hours before your slot.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl bg-ember/10 text-ember flex items-center justify-center shrink-0"><i class="fas fa-bolt"></i></div>
+        <div>
+          <h4 class="font-display font-bold text-slate-900 dark:text-white text-base">Instant Confirmation</h4>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-1">Email confirmation with your booking ID.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== GAME DAY PROTOCOL ======== -->
+<section class="py-20 bg-slate-50 dark:bg-[#0B0F14] transition-colors duration-300 relative overflow-hidden">
+  <div class="container mx-auto px-6 max-w-6xl relative z-10">
+    <div class="text-center mb-14">
+      <span class="inline-flex items-center gap-2 text-ember px-0 py-1.5 text-xs font-bold uppercase tracking-[0.2em] mb-3">
+        <span class="w-8 h-px bg-ember"></span> Mission Prep <span class="w-8 h-px bg-ember"></span>
+      </span>
+      <h2 class="text-3xl md:text-5xl font-display font-extrabold text-slate-900 dark:text-white leading-tight">
+        Game Day <span class="text-ember">Protocol</span>
+      </h2>
+      <p class="text-slate-600 dark:text-slate-300 mt-3 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+        From arrival to the final horn — here is how your combat session flows smoothly from check-in to victory.
+      </p>
+    </div>
+
+    <!-- 4 Step Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Step 1 -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-[#1E2A32] border border-slate-200/90 dark:border-ember/20 shadow-sm relative group hover:border-ember/50 hover:-translate-y-1 transition-all duration-300">
+        <span class="text-4xl font-display font-extrabold text-ember/30 group-hover:text-ember transition-colors block mb-3">01</span>
+        <div class="w-12 h-12 rounded-xl bg-ember/10 text-ember flex items-center justify-center text-lg mb-4">
+          <i class="fas fa-clipboard-check"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Check-In &amp; Waivers</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
+          Arrive 15 minutes before your time slot. Scan your digital booking QR code and grab squad locker keys.
+        </p>
+        <span class="inline-block mt-4 text-[11px] font-bold text-ember uppercase tracking-wider">Estimated: 10 mins</span>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-[#1E2A32] border border-slate-200/90 dark:border-ember/20 shadow-sm relative group hover:border-ember/50 hover:-translate-y-1 transition-all duration-300">
+        <span class="text-4xl font-display font-extrabold text-ember/30 group-hover:text-ember transition-colors block mb-3">02</span>
+        <div class="w-12 h-12 rounded-xl bg-ember/10 text-ember flex items-center justify-center text-lg mb-4">
+          <i class="fas fa-shield-halved"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Armory &amp; Fitting</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
+          Get fitted with ASTM-certified dual-pane anti-fog masks, chest protectors, and calibrated electro markers.
+        </p>
+        <span class="inline-block mt-4 text-[11px] font-bold text-ember uppercase tracking-wider">Estimated: 15 mins</span>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-[#1E2A32] border border-slate-200/90 dark:border-ember/20 shadow-sm relative group hover:border-ember/50 hover:-translate-y-1 transition-all duration-300">
+        <span class="text-4xl font-display font-extrabold text-ember/30 group-hover:text-ember transition-colors block mb-3">03</span>
+        <div class="w-12 h-12 rounded-xl bg-ember/10 text-ember flex items-center justify-center text-lg mb-4">
+          <i class="fas fa-bullhorn"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Tactical Briefing</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
+          Pro referee walkthrough on safety protocols, barrel plugs, field boundaries, and match objectives.
+        </p>
+        <span class="inline-block mt-4 text-[11px] font-bold text-ember uppercase tracking-wider">Estimated: 10 mins</span>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-[#1E2A32] border border-slate-200/90 dark:border-ember/20 shadow-sm relative group hover:border-ember/50 hover:-translate-y-1 transition-all duration-300">
+        <span class="text-4xl font-display font-extrabold text-ember/30 group-hover:text-ember transition-colors block mb-3">04</span>
+        <div class="w-12 h-12 rounded-xl bg-ember/10 text-ember flex items-center justify-center text-lg mb-4">
+          <i class="fas fa-crosshairs"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Drop into Combat</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
+          Enter your assigned zone. Non-stop rapid-fire matches, electronic scorekeeping, and mission rounds.
+        </p>
+        <span class="inline-block mt-4 text-[11px] font-bold text-ember uppercase tracking-wider">Game Time: 2-3 Hours</span>
+      </div>
+    </div>
+
+    <!-- Pro Tip Callout -->
+    <div class="mt-10 p-5 rounded-2xl bg-white dark:bg-[#1E2A32] border border-ember/25 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left shadow-sm">
+      <div class="w-10 h-10 rounded-xl bg-ember text-white flex items-center justify-center shrink-0 shadow-md">
+        <i class="fas fa-lightbulb text-base"></i>
+      </div>
+      <div class="flex-1">
+        <span class="font-bold text-slate-900 dark:text-white text-sm">Pro Player Tip:</span>
+        <span class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm ml-1">
+          Wear breathable long sleeves, athletic pants, and high-traction sneakers or turf cleats. We provide full protective masks and chest guards.
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== PRIVATE EVENTS & SQUAD BOOKINGS ======== -->
+<section class="py-20 bg-white dark:bg-[#0E141B] border-y border-slate-200/80 dark:border-ember/15 transition-colors duration-300 relative overflow-hidden">
+  <div class="container mx-auto px-6 max-w-6xl relative z-10">
+    <div class="text-center mb-14">
+      <span class="inline-flex items-center gap-2 text-ember px-0 py-1.5 text-xs font-bold uppercase tracking-[0.2em] mb-3">
+        <span class="w-8 h-px bg-ember"></span> Big Squads &amp; Corporate <span class="w-8 h-px bg-ember"></span>
+      </span>
+      <h2 class="text-3xl md:text-5xl font-display font-extrabold text-slate-900 dark:text-white leading-tight">
+        Private Events &amp; <span class="text-ember">Group Ops</span>
+      </h2>
+      <p class="text-slate-600 dark:text-slate-300 mt-3 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+        Bringing 10 or more players? Unlock exclusive private zone reservations, dedicated tournament referees, and custom mission scenarios.
+      </p>
+    </div>
+
+    <!-- 3 Group Options -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <!-- Group 1: Birthday & Bachelor -->
+      <div class="p-7 rounded-2xl bg-slate-50 dark:bg-[#1E2A32] border border-slate-200 dark:border-ember/20 shadow-sm flex flex-col justify-between hover:border-ember/50 hover:-translate-y-1 transition-all duration-300">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-ember/10 text-ember flex items-center justify-center text-xl mb-4">
+            <i class="fas fa-cake-candles"></i>
+          </div>
+          <h3 class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2">Birthday &amp; Bachelor Bashes</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
+            VIP player lounge reservation, "Protect the Bachelor" custom game mode, free extra paint for the guest of honor, and HD squad photo ops.
+          </p>
+          <ul class="space-y-2 mb-6 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            <li class="flex items-center gap-2"><i class="fas fa-check text-ember text-xs"></i> 10–25 Players</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-ember text-xs"></i> Private Arena Referee</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-ember text-xs"></i> Free Upgrade for Host</li>
+          </ul>
+        </div>
+        <div class="pt-4 border-t border-slate-200/80 dark:border-ember/20 flex items-center justify-between">
+          <span class="text-xs text-slate-500 font-semibold uppercase">From $35 / player</span>
+          <a href="contact.html" class="text-ember font-bold text-xs hover:underline flex items-center gap-1">Inquire <i class="fas fa-arrow-right text-[10px]"></i></a>
+        </div>
+      </div>
+
+      <!-- Group 2: Corporate Team Building -->
+      <div class="p-7 rounded-2xl bg-slate-50 dark:bg-[#1E2A32] border-2 border-ember/50 shadow-md shadow-ember/10 flex flex-col justify-between hover:border-ember hover:-translate-y-1 transition-all duration-300 relative">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-ember text-white flex items-center justify-center text-xl mb-4 shadow-md shadow-ember/30">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h3 class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2">Corporate Team Battles</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
+            High-octane team communication drills, bracket-style departmental tournaments, squad debriefing area, and catering options.
+          </p>
+          <ul class="space-y-2 mb-6 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            <li class="flex items-center gap-2"><i class="fas fa-check text-ember text-xs"></i> 15–60+ Players</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-ember text-xs"></i> Tournament Bracket Management</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-ember text-xs"></i> Catering &amp; BBQ Add-On</li>
+          </ul>
+        </div>
+        <div class="pt-4 border-t border-slate-200/80 dark:border-ember/20 flex items-center justify-between">
+          <span class="text-xs text-slate-500 font-semibold uppercase">Custom Invoice</span>
+          <a href="contact.html" class="text-ember font-bold text-xs hover:underline flex items-center gap-1">Inquire <i class="fas fa-arrow-right text-[10px]"></i></a>
+        </div>
+      </div>
+
+      <!-- Group 3: League & Full Field Buyout -->
+      <div class="p-7 rounded-2xl bg-slate-50 dark:bg-[#1E2A32] border border-slate-200 dark:border-ember/20 shadow-sm flex flex-col justify-between hover:border-ember/50 hover:-translate-y-1 transition-all duration-300">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-ember/10 text-ember flex items-center justify-center text-xl mb-4">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <h3 class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2">Private Field Buyout</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
+            Lock down an entire zone exclusively for your squad. Unlimited compressed air fills, pro audio music system, and full referee squad.
+          </p>
+          <ul class="space-y-2 mb-6 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            <li class="flex items-center gap-2"><i class="fas fa-check text-ember text-xs"></i> 100% Exclusive Field Access</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-ember text-xs"></i> 2 Lead Marshals Included</li>
+            <li class="flex items-center gap-2"><i class="fas fa-check text-ember text-xs"></i> Half-Day or Full-Day Rates</li>
+          </ul>
+        </div>
+        <div class="pt-4 border-t border-slate-200/80 dark:border-ember/20 flex items-center justify-between">
+          <span class="text-xs text-slate-500 font-semibold uppercase">Hourly / Full-Day</span>
+          <a href="contact.html" class="text-ember font-bold text-xs hover:underline flex items-center gap-1">Inquire <i class="fas fa-arrow-right text-[10px]"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Callout Banner -->
+    <div class="p-8 rounded-3xl bg-gradient-to-r from-ember/15 via-ember/5 to-transparent border border-ember/30 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <h4 class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2">Need a Custom Squad Package?</h4>
+        <p class="text-slate-600 dark:text-slate-300 text-sm max-w-lg">
+          Talk directly to our arena commander. We'll build a tailored itinerary, gear setup, and paint volume for your squad size.
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="contact.html" class="btn-ember px-6 py-3 text-sm inline-flex items-center gap-2 shadow-lg">
+          <i class="fas fa-envelope"></i> Request Group Quote
+        </a>
+        <a href="tel:+15557274772" class="btn-ghost-arena px-6 py-3 text-sm inline-flex items-center gap-2">
+          <i class="fas fa-phone"></i> (555) 727-4SPA
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FAQ / HELP ======== -->
+<section class="py-20 bg-slate-50 dark:bg-[#0B0F14] transition-colors duration-300">
+  <div class="container mx-auto px-6 max-w-4xl">
+    <div class="text-center mb-12 animate-fade-up">
+      <span class="inline-flex items-center gap-2 text-ember px-0 py-1.5 text-xs font-bold uppercase tracking-[0.2em] mb-4">
+        <span class="w-8 h-px bg-ember"></span> Before You Book <span class="w-8 h-px bg-ember"></span>
+      </span>
+      <h2 class="text-3xl md:text-4xl font-display font-extrabold text-slate-900 dark:text-white leading-tight">
+        Quick <span class="text-ember">answers</span>
+      </h2>
+    </div>
+
+    <!-- Accordion List -->
+    <div class="space-y-4" id="booking-faq-accordion">
+      <!-- Item 1 -->
+      <div class="faq-item overflow-hidden">
+        <button class="w-full text-left p-5 md:p-6 flex items-center justify-between gap-4 font-display font-bold text-lg md:text-xl text-slate-900 dark:text-white faq-toggle focus:outline-none cursor-pointer">
+          <span class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-ember/10 text-ember flex items-center justify-center shrink-0">
+              <i class="fas fa-credit-card text-xs"></i>
+            </span>
+            <span>When do I pay?</span>
+          </span>
+          <div class="w-8 h-8 rounded-full bg-ember/10 text-ember flex items-center justify-center shrink-0 transition-transform duration-300 faq-icon">
+            <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+          </div>
+        </button>
+        <div class="hidden px-5 md:px-6 pb-6 pt-0 text-sm leading-relaxed text-slate-600 dark:text-slate-300 border-t border-slate-200/80 dark:border-ember/10 faq-content">
+          <p class="pt-4">
+            Payment is collected on arrival at the check-in desk. We accept cash, all major cards, and mobile pay. No deposit required.
+          </p>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="faq-item overflow-hidden">
+        <button class="w-full text-left p-5 md:p-6 flex items-center justify-between gap-4 font-display font-bold text-lg md:text-xl text-slate-900 dark:text-white faq-toggle focus:outline-none cursor-pointer">
+          <span class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-ember/10 text-ember flex items-center justify-center shrink-0">
+              <i class="fas fa-users text-xs"></i>
+            </span>
+            <span>Can I add players later?</span>
+          </span>
+          <div class="w-8 h-8 rounded-full bg-ember/10 text-ember flex items-center justify-center shrink-0 transition-transform duration-300 faq-icon">
+            <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+          </div>
+        </button>
+        <div class="hidden px-5 md:px-6 pb-6 pt-0 text-sm leading-relaxed text-slate-600 dark:text-slate-300 border-t border-slate-200/80 dark:border-ember/10 faq-content">
+          <p class="pt-4">
+            Yes — just let us know at check-in. Extra players pay the per-player rate. If the zone is at max capacity, we'll move you to an open slot.
+          </p>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="faq-item overflow-hidden">
+        <button class="w-full text-left p-5 md:p-6 flex items-center justify-between gap-4 font-display font-bold text-lg md:text-xl text-slate-900 dark:text-white faq-toggle focus:outline-none cursor-pointer">
+          <span class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-ember/10 text-ember flex items-center justify-center shrink-0">
+              <i class="fas fa-child text-xs"></i>
+            </span>
+            <span>Is there a minimum age?</span>
+          </span>
+          <div class="w-8 h-8 rounded-full bg-ember/10 text-ember flex items-center justify-center shrink-0 transition-transform duration-300 faq-icon">
+            <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+          </div>
+        </button>
+        <div class="hidden px-5 md:px-6 pb-6 pt-0 text-sm leading-relaxed text-slate-600 dark:text-slate-300 border-t border-slate-200/80 dark:border-ember/10 faq-content">
+          <p class="pt-4">
+            Players must be 10+. Ages 10–15 require a parent or guardian on-site. Low-impact paint available for younger players.
+          </p>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="faq-item overflow-hidden">
+        <button class="w-full text-left p-5 md:p-6 flex items-center justify-between gap-4 font-display font-bold text-lg md:text-xl text-slate-900 dark:text-white faq-toggle focus:outline-none cursor-pointer">
+          <span class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-ember/10 text-ember flex items-center justify-center shrink-0">
+              <i class="fas fa-umbrella text-xs"></i>
+            </span>
+            <span>What if it rains?</span>
+          </span>
+          <div class="w-8 h-8 rounded-full bg-ember/10 text-ember flex items-center justify-center shrink-0 transition-transform duration-300 faq-icon">
+            <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+          </div>
+        </button>
+        <div class="hidden px-5 md:px-6 pb-6 pt-0 text-sm leading-relaxed text-slate-600 dark:text-slate-300 border-t border-slate-200/80 dark:border-ember/10 faq-content">
+          <p class="pt-4">
+            We play rain or shine! All zones are outdoors. In the event of lightning or extreme weather, we'll reschedule your session at no cost.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FOOTER (EXACT COPY) ======== -->
+<footer class="bg-slate-950 text-slate-300 pt-16 pb-8 border-t border-slate-800 dark:border-ember/20">
+  <div class="container mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="text-center md:text-start">
+        <a href="index.html" class="inline-flex items-center justify-center md:justify-start gap-2.5 mb-6 group hover:opacity-90 transition">
+          <div class="w-10 h-10 bg-gradient-to-br from-ember to-[#D90429] rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition duration-300">
+            <svg viewBox="0 0 40 40" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="16" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.4" stroke-dasharray="4 2"/>
+              <line x1="20" y1="4" x2="20" y2="10" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="20" y1="30" x2="20" y2="36" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="4" y1="20" x2="10" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="30" y1="20" x2="36" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M20 12C15.6 12 12 15.6 12 20C12 22.8 13.4 25.2 15.6 26.6L20 30L24.4 26.6C26.6 25.2 28 22.8 28 20C28 15.6 24.4 12 20 12Z" fill="#FFFFFF"/>
+              <path d="M14.5 19C14.5 17.5 16 16.5 20 16.5C24 16.5 25.5 17.5 25.5 19C25.5 20.5 24 21 20 21C16 21 14.5 20.5 14.5 19Z" fill="#E63946"/>
+            </svg>
+          </div>
+          <span class="text-xl md:text-2xl font-display font-extrabold tracking-wider text-white leading-none">
+            CROSS<span class="text-ember">FIRE</span>
+          </span>
+        </a>
+        <p class="mb-5 text-slate-400 text-sm leading-relaxed">Six immersive tactical zones. Pro tournament-grade gear. Pure combat adrenaline guaranteed.</p>
+        <div class="flex justify-center md:justify-start gap-3">
+          <a href="#" class="social-icon-arena" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-icon-arena" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="social-icon-arena" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <div class="text-center md:text-start">
+        <h4 class="text-ember font-bold text-sm mb-5 uppercase tracking-widest">Battle Zones</h4>
+        <ul class="space-y-2.5">
+          <li><a href="zones.html" class="hover:text-ember transition block text-slate-400 text-sm">Speedball Arena</a></li>
+          <li><a href="zones.html" class="hover:text-ember transition block text-slate-400 text-sm">Urban Combat CQB</a></li>
+          <li><a href="zones.html" class="hover:text-ember transition block text-slate-400 text-sm">Woodland Forest Zone</a></li>
+          <li><a href="zones.html" class="hover:text-ember transition block text-slate-400 text-sm">Night Ops Tactical</a></li>
+        </ul>
+      </div>
+
+      <div class="text-center md:text-start">
+        <h4 class="text-ember font-bold text-sm mb-5 uppercase tracking-widest">Quick Links</h4>
+        <ul class="space-y-2.5">
+          <li><a href="about.html" class="hover:text-ember transition block text-slate-400 text-sm">About Arena</a></li>
+          <li><a href="packages.html" class="hover:text-ember transition block text-slate-400 text-sm">Packages &amp; Pricing</a></li>
+          <li><a href="book.html" class="hover:text-ember transition block text-slate-400 text-sm">Book a Session</a></li>
+          <li><a href="client.html" class="hover:text-ember transition block text-slate-400 text-sm">Player Dashboard</a></li>
+          <li><a href="admin.html" class="hover:text-ember transition block text-slate-400 text-sm">Admin Dashboard</a></li>
+        </ul>
+      </div>
+
+      <div class="text-center md:text-start">
+        <h4 class="text-ember font-bold text-sm mb-5 uppercase tracking-widest">Visit Arena</h4>
+        <ul class="space-y-3">
+          <li class="flex justify-center md:justify-start gap-3 text-slate-400 text-sm"><i class="fas fa-map-marker-alt text-ember mt-0.5"></i><span>4500 Tactical Way, Combat District</span></li>
+          <li class="flex justify-center md:justify-start gap-3 text-slate-400 text-sm"><i class="fas fa-phone text-ember"></i><span>(555) 727-4SPA</span></li>
+          <li class="flex justify-center md:justify-start gap-3 text-slate-400 text-sm"><i class="fas fa-envelope text-ember"></i><span>hello@crossfirearena.com</span></li>
+          <li class="flex justify-center md:justify-start gap-3 text-slate-400 text-sm"><i class="fas fa-clock text-ember"></i><span>Mon–Fri 9am – 7pm · Sat 10am – 4pm</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+      <p>&copy; 2026 CROSSFIRE. <i class="fas fa-heart text-ember mx-1"></i> Dominate the field.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ======== CONFIRMATION MODAL ======== -->
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal-box">
+    <div class="w-20 h-20 rounded-2xl bg-ember/10 flex items-center justify-center mx-auto mb-5 relative">
+      <span class="absolute inset-0 rounded-2xl border-2 border-ember/30 animate-ping-slow"></span>
+      <i class="fas fa-check text-ember text-3xl"></i>
+    </div>
+    <h3 class="font-display font-extrabold text-2xl text-slate-900 dark:text-white mb-2">Session Locked!</h3>
+    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-5">
+      Your booking is confirmed. A confirmation email with your booking ID and arrival instructions is on its way.
+    </p>
+    <div class="p-4 rounded-xl bg-slate-50 dark:bg-[#0B0F14] border border-slate-200 dark:border-ember/20 text-left mb-6 space-y-1.5">
+      <div class="flex justify-between text-xs"><span class="text-slate-500">Zone</span><span class="font-bold text-slate-900 dark:text-white" id="modal-zone">—</span></div>
+      <div class="flex justify-between text-xs"><span class="text-slate-500">Date</span><span class="font-bold text-slate-900 dark:text-white" id="modal-date">—</span></div>
+      <div class="flex justify-between text-xs"><span class="text-slate-500">Time</span><span class="font-bold text-slate-900 dark:text-white" id="modal-time">—</span></div>
+      <div class="flex justify-between text-xs"><span class="text-slate-500">Players</span><span class="font-bold text-slate-900 dark:text-white" id="modal-players">—</span></div>
+      <div class="flex justify-between text-xs pt-2 border-t border-slate-200 dark:border-ember/20 mt-2"><span class="text-slate-500 font-bold">Total</span><span class="font-display font-extrabold text-ember text-base" id="modal-total">—</span></div>
+    </div>
+    <button type="button" id="close-modal" class="btn-ember w-full py-3 text-sm inline-flex items-center justify-center gap-2">
+      <i class="fas fa-thumbs-up"></i> Got it, see you on the field
+    </button>
+  </div>
+</div>
+
+<!-- ======== SCRIPTS ======== -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    /* ---------- THEME ---------- */
+    const themeBtns = document.querySelectorAll('#theme-toggle, #mobile-theme-toggle');
+    function applyTheme(isDark) {
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+    themeBtns.forEach(btn => {
+      btn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        applyTheme(!document.documentElement.classList.contains('dark'));
+      });
+    });
+
+    /* ---------- RTL ---------- */
+    function setRTL(isRTL) {
+      const html = document.documentElement;
+      if (isRTL === 'rtl' || isRTL === true) {
+        html.setAttribute('dir', 'rtl');
+        localStorage.setItem('dir', 'rtl');
+      } else {
+        html.setAttribute('dir', 'ltr');
+        localStorage.setItem('dir', 'ltr');
+      }
+    }
+    const savedDir = localStorage.getItem('dir');
+    if (savedDir === 'rtl') document.documentElement.setAttribute('dir', 'rtl');
+    else document.documentElement.setAttribute('dir', 'ltr');
+
+    document.getElementById('rtl-toggle')?.addEventListener('click', () => {
+      setRTL(document.documentElement.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl');
+    });
+    document.getElementById('mobile-rtl-toggle')?.addEventListener('click', () => {
+      setRTL(document.documentElement.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl');
+      closeMobileMenu();
+    });
+
+    /* ---------- MOBILE MENU ---------- */
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    function closeMobileMenu() {
+      mobileMenu?.classList.remove('open');
+      const icon = mobileToggle?.querySelector('i');
+      if (icon) { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
+    }
+    mobileToggle?.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+      const icon = mobileToggle.querySelector('i');
+      if (mobileMenu.classList.contains('open')) {
+        icon.classList.remove('fa-bars'); icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times'); icon.classList.add('fa-bars');
+      }
+    });
+    mobileMenu?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    /* ============================================================
+       BOOKING FLOW
+       ============================================================ */
+    const state = {
+      zone: null,
+      price: 0,
+      date: '',
+      time: '',
+      players: 6,
+      step: 1
+    };
+
+    const steps = document.querySelectorAll('.booking-step');
+    const stepNodes = document.querySelectorAll('.step-node');
+    const connectors = [document.getElementById('connector-1'), document.getElementById('connector-2')];
+    const progressFill = document.getElementById('progress-fill');
+    const progressLabel = document.getElementById('progress-label');
+
+    function goToStep(n) {
+      state.step = n;
+      steps.forEach(s => {
+        s.classList.toggle('active', parseInt(s.dataset.stepContent) === n);
+      });
+      stepNodes.forEach(node => {
+        const num = parseInt(node.dataset.step);
+        node.classList.toggle('active', num === n);
+        node.classList.toggle('completed', num < n);
+
+        const circle = node.querySelector('.step-circle');
+        if (circle) {
+          if (num < n) {
+            circle.innerHTML = '<i class="fas fa-check text-sm"></i>';
+          } else if (num === 1) {
+            circle.innerHTML = '<i class="fas fa-crosshairs"></i>';
+          } else if (num === 2) {
+            circle.innerHTML = '<i class="fas fa-calendar-day"></i>';
+          } else if (num === 3) {
+            circle.innerHTML = '<i class="fas fa-user-astronaut"></i>';
+          }
+        }
+      });
+      connectors.forEach((c, i) => {
+        if (c) {
+          c.classList.toggle('completed', (i + 1) < n);
+        }
+      });
+      // Progress bar inside booking summary/card
+      const pct = n === 1 ? 0 : n === 2 ? 50 : 100;
+      if (progressFill) progressFill.style.width = pct + '%';
+      if (progressLabel) progressLabel.textContent = `Step ${n} of 3`;
+      // Scroll to form top on mobile
+      document.querySelector('.booking-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Interactive Step Node Clicking
+    stepNodes.forEach(node => {
+      node.addEventListener('click', () => {
+        const targetStep = parseInt(node.dataset.step);
+        if (targetStep === state.step) return;
+
+        // User can jump back anytime
+        if (targetStep < state.step) {
+          goToStep(targetStep);
+        } else if (targetStep === 2 && state.step === 1) {
+          if (!state.zone && zoneOptions.length > 0) selectZone(zoneOptions[0]);
+          goToStep(2);
+        } else if (targetStep === 3 && state.step === 2) {
+          if (!state.time && defaultTimeSlot) selectTimeSlot(defaultTimeSlot);
+          goToStep(3);
+        } else if (targetStep === 3 && state.step === 1) {
+          if (!state.zone && zoneOptions.length > 0) selectZone(zoneOptions[0]);
+          if (!state.time && defaultTimeSlot) selectTimeSlot(defaultTimeSlot);
+          goToStep(3);
+        }
+      });
+
+      node.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          node.click();
+        }
+      });
+    });
+
+    function updateSummary() {
+      const zoneEl = document.getElementById('summary-zone');
+      zoneEl.textContent = state.zone || '—';
+      document.getElementById('summary-date').textContent = state.date || '—';
+      document.getElementById('summary-time').textContent = state.time || '—';
+      document.getElementById('summary-players').textContent = state.players ? state.players + ' players' : '—';
+      document.getElementById('summary-price').textContent = '$' + (state.price || 0);
+      const total = (state.price || 0) * (state.players || 0);
+      document.getElementById('summary-total').textContent = '$' + total;
+    }
+
+    /* ----- Zone selection ----- */
+    const zoneOptions = document.querySelectorAll('.select-zone');
+    const nextBtn1 = document.getElementById('next-step-1');
+
+    function selectZone(opt) {
+      if (!opt) return;
+      zoneOptions.forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      state.zone = opt.dataset.zone;
+      state.price = parseInt(opt.dataset.price);
+      updateSummary();
+    }
+
+    zoneOptions.forEach(opt => {
+      opt.addEventListener('click', () => selectZone(opt));
+    });
+
+    // Pre-select first zone by default so Continue button and summary are instantly active
+    if (zoneOptions.length > 0) {
+      selectZone(zoneOptions[0]);
+    }
+
+    /* ----- Time slot selection ----- */
+    const timeSlots = document.querySelectorAll('.time-slot');
+    const nextBtn2 = document.getElementById('next-step-2');
+    const dateInput = document.getElementById('booking-date');
+    const playersSelect = document.getElementById('booking-players');
+
+    // Default date to tomorrow
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const yyyy = tomorrow.getFullYear();
+    const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    const dd = String(tomorrow.getDate()).padStart(2, '0');
+    dateInput.value = `${yyyy}-${mm}-${dd}`;
+    state.date = dateInput.value;
+
+    function selectTimeSlot(slot) {
+      if (!slot || slot.classList.contains('disabled')) return;
+      timeSlots.forEach(s => s.classList.remove('selected'));
+      slot.classList.add('selected');
+      state.time = slot.dataset.time;
+      updateSummary();
+      const summaryTimeEl = document.getElementById('summary-time');
+      if (summaryTimeEl) summaryTimeEl.textContent = formatTime(state.time);
+    }
+
+    dateInput.addEventListener('change', () => {
+      state.date = dateInput.value;
+      updateSummary();
+    });
+
+    playersSelect.addEventListener('change', () => {
+      state.players = parseInt(playersSelect.value);
+      updateSummary();
+    });
+
+    timeSlots.forEach(slot => {
+      slot.addEventListener('click', () => selectTimeSlot(slot));
+    });
+
+    // Pre-select first available time slot
+    const defaultTimeSlot = document.querySelector('.time-slot:not(.disabled)');
+    if (defaultTimeSlot) {
+      selectTimeSlot(defaultTimeSlot);
+    }
+
+    /* ----- Step 3 validation & submit ----- */
+    const first = document.getElementById('first-name');
+    const last = document.getElementById('last-name');
+    const email = document.getElementById('email');
+    const phone = document.getElementById('phone');
+    const waiver = document.getElementById('waiver');
+    const submitBtn = document.getElementById('submit-booking');
+
+    /* ----- Navigation ----- */
+    nextBtn1.addEventListener('click', () => {
+      if (!state.zone && zoneOptions.length > 0) {
+        selectZone(zoneOptions[0]);
+      }
+      goToStep(2);
+    });
+    document.getElementById('back-step-2').addEventListener('click', () => goToStep(1));
+    nextBtn2.addEventListener('click', () => {
+      if (!state.time && defaultTimeSlot) {
+        selectTimeSlot(defaultTimeSlot);
+      }
+      goToStep(3);
+    });
+    document.getElementById('back-step-3').addEventListener('click', () => goToStep(2));
+
+    /* ----- Submit & Modal ----- */
+    submitBtn.addEventListener('click', () => {
+      if (!first.value.trim()) { first.focus(); return; }
+      if (!last.value.trim()) { last.focus(); return; }
+      if (!email.value.trim() || !email.value.includes('@')) { email.focus(); return; }
+      if (!phone.value.trim()) { phone.focus(); return; }
+      if (!waiver.checked) { waiver.focus(); return; }
+
+      document.getElementById('modal-zone').textContent = state.zone || 'Speedball Arena';
+      document.getElementById('modal-date').textContent = formatDate(state.date);
+      document.getElementById('modal-time').textContent = formatTime(state.time || '09:00');
+      document.getElementById('modal-players').textContent = state.players + ' players';
+      document.getElementById('modal-total').textContent = '$' + ((state.price || 45) * state.players);
+      document.getElementById('confirm-modal').classList.add('open');
+    });
+
+    document.getElementById('close-modal').addEventListener('click', () => {
+      document.getElementById('confirm-modal').classList.remove('open');
+      // Reset flow
+      goToStep(1);
+      if (zoneOptions.length > 0) selectZone(zoneOptions[0]);
+      if (defaultTimeSlot) selectTimeSlot(defaultTimeSlot);
+      first.value = ''; last.value = ''; email.value = ''; phone.value = '';
+      document.getElementById('notes').value = '';
+      waiver.checked = false;
+      updateSummary();
+    });
+
+    document.getElementById('confirm-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'confirm-modal') {
+        document.getElementById('close-modal').click();
+      }
+    });
+
+    /* ----- Helpers ----- */
+    function formatDate(val) {
+      if (!val) return '—';
+      const d = new Date(val + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    }
+    function formatTime(val) {
+      if (!val) return '—';
+      const [h, m] = val.split(':').map(Number);
+      const suffix = h >= 12 ? 'PM' : 'AM';
+      const hour12 = h % 12 === 0 ? 12 : h % 12;
+      return `${hour12}:${String(m).padStart(2,'0')} ${suffix}`;
+    }
+
+    // Init summary labels with formatted date
+    state.date = dateInput.value;
+    updateSummary();
+    document.getElementById('summary-date').textContent = formatDate(state.date);
+    dateInput.addEventListener('change', () => {
+      document.getElementById('summary-date').textContent = formatDate(dateInput.value);
+    });
+    timeSlots.forEach(slot => {
+      slot.addEventListener('click', () => {
+        if (slot.classList.contains('disabled')) return;
+        document.getElementById('summary-time').textContent = formatTime(slot.dataset.time);
+      });
+    });
+
+    /* ---------- FAQ ACCORDION ---------- */
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const toggle = item.querySelector('.faq-toggle');
+      const content = item.querySelector('.faq-content');
+      const icon = item.querySelector('.faq-icon i');
+
+      toggle?.addEventListener('click', () => {
+        const isOpen = !content.classList.contains('hidden');
+        faqItems.forEach(other => {
+          other.querySelector('.faq-content')?.classList.add('hidden');
+          const otherIcon = other.querySelector('.faq-icon i');
+          if (otherIcon) {
+            otherIcon.classList.remove('fa-chevron-up');
+            otherIcon.classList.add('fa-chevron-down');
+          }
+        });
+
+        if (!isOpen) {
+          content.classList.remove('hidden');
+          if (icon) {
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+          }
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

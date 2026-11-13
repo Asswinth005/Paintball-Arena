@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, viewport-fit=cover">
+    <title>Join CROSSFIRE · Player Registration</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' rx='9' fill='%23E63946'/%3E%3Ccircle cx='18' cy='18' r='12' stroke='%23FFFFFF' stroke-width='2' fill='none' stroke-opacity='0.5' stroke-dasharray='3 2'/%3E%3Cline x1='18' y1='3' x2='18' y2='9' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='18' y1='27' x2='18' y2='33' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='3' y1='18' x2='9' y2='18' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='27' y1='18' x2='33' y2='18' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='18' r='4.5' fill='%23FFFFFF'/%3E%3Ccircle cx='18' cy='18' r='2' fill='%23E63946'/%3E%3C/svg%3E" />
+
+    <!-- Tailwind -->
+    <script src="tailwind.js"></script>
+    <script>
+        if (typeof tailwind === 'undefined') {
+            document.write('<script src="https://cdn.tailwindcss.com"><\/script>');
+        }
+    </script>
+    <script>
+        window.tailwind = window.tailwind || {};
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ember: '#E63946',
+                        flare: '#F4A261',
+                        neon: '#2A9D8F',
+                        sand: '#E9C46A',
+                        arena: '#0B0F14',
+                        ash: '#1E2A32',
+                        steel: '#3A4A57',
+                        fuchsia: '#D90429',
+                    },
+                    fontFamily: {
+                        'display': ['"Bebas Neue"', 'sans-serif'],
+                        'body': ['"Inter"', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.4s ease-out',
+                        'float-slow': 'floatSlow 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0', transform: 'translateY(12px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        floatSlow: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-6px)' } },
+                        slideUp: { '0%': { transform: 'translateY(30px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        :root {
+            --color-primary: #E63946;
+            --color-primary-light: #F4A261;
+            --color-primary-dark: #D90429;
+            --color-primary-bright: #F4A261;
+            --color-accent: #2A9D8F;
+            --color-bg-warm: #F8FAFC;
+            --color-text-dark: #0F172A;
+            --color-rgb-primary: 230, 57, 70;
+            --color-rgb-bright: 244, 162, 97;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #0B0F14;
+            color: #F5F7FA;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            font-family: 'Inter', system-ui, sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Light mode override */
+        html:not(.dark) body {
+            background-color: #F8FAFC;
+            color: #0F172A;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        /* Theme toggles — top-right */
+        .theme-toggle-wrapper {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+        }
+        [dir="rtl"] .theme-toggle-wrapper {
+            right: auto;
+            left: 16px;
+        }
+
+        .toggle-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(230, 57, 70, 0.12);
+            color: #E63946;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(230, 57, 70, 0.25);
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: bold;
+        }
+        html:not(.dark) .toggle-btn {
+            background: rgba(230, 57, 70, 0.08);
+            border-color: rgba(230, 57, 70, 0.2);
+        }
+        .toggle-btn:hover {
+            transform: scale(1.08);
+            background: rgba(230, 57, 70, 0.22);
+        }
+
+        /* Signup Card */
+        .signup-card {
+            background: #1E2A32;
+            border-radius: 4px 40px 4px 40px;
+            padding: 1.8rem 2rem 1.8rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(230, 57, 70, 0.2);
+            border: 1px solid rgba(230, 57, 70, 0.25);
+            width: 100%;
+            max-width: 460px;
+            margin: 0 auto;
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+            position: relative;
+        }
+
+        html:not(.dark) .signup-card {
+            background: #FFFFFF;
+            border-color: rgba(230, 57, 70, 0.15);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(230, 57, 70, 0.1);
+        }
+
+        /* Input styling */
+        .signup-input {
+            width: 100%;
+            padding: 0.8rem 1.2rem 0.8rem 3rem;
+            border-radius: 4px 20px 4px 20px;
+            border: 1.5px solid rgba(230, 57, 70, 0.25);
+            background: #0B0F14;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            color: #F5F7FA;
+            font-family: 'Inter', sans-serif;
+        }
+        html:not(.dark) .signup-input {
+            background: #F8FAFC;
+            border-color: rgba(230, 57, 70, 0.2);
+            color: #0F172A;
+        }
+        .signup-input:focus {
+            outline: none;
+            border-color: #E63946;
+            box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.15);
+        }
+        .signup-input::placeholder {
+            color: rgba(245, 247, 250, 0.35);
+        }
+        html:not(.dark) .signup-input::placeholder {
+            color: rgba(15, 23, 42, 0.4);
+        }
+
+        /* Password wrapper */
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .password-wrapper .signup-input {
+            padding-right: 3rem;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #E63946;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            background: transparent;
+            border: none;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .toggle-password:hover { color: #D90429; }
+        [dir="rtl"] .toggle-password {
+            right: auto;
+            left: 1rem;
+        }
+        [dir="rtl"] .password-wrapper .signup-input {
+            padding-right: 1.2rem;
+            padding-left: 3rem;
+        }
+        [dir="rtl"] .input-icon {
+            left: auto;
+            right: 1.1rem;
+        }
+
+        /* Primary button */
+        .btn-ember {
+            background: #E63946;
+            color: #FFFFFF;
+            font-weight: 700;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px 20px 4px 20px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+            letter-spacing: 0.3px;
+        }
+        .btn-ember:hover {
+            transform: translateY(-2px);
+            background: #D90429;
+            color: #FFFFFF;
+            box-shadow: 0 10px 25px rgba(230, 57, 70, 0.4);
+            border-radius: 20px 4px 20px 4px;
+        }
+
+        /* Social login buttons */
+        .social-btn {
+            flex: 1;
+            padding: 0.7rem 0.5rem;
+            border-radius: 4px 20px 4px 20px;
+            border: 1.5px solid rgba(230, 57, 70, 0.25);
+            background: transparent;
+            color: #F5F7FA;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            gap: 0.5rem;
+            white-space: nowrap;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        html:not(.dark) .social-btn {
+            background: #F8FAFC;
+            border-color: rgba(230, 57, 70, 0.2);
+            color: #0F172A;
+        }
+        .social-btn:hover {
+            background: rgba(230, 57, 70, 0.1);
+            border-color: #E63946;
+            transform: translateY(-2px);
+        }
+        .social-btn i {
+            font-size: 1.1rem;
+            color: #E63946;
+        }
+
+        /* Logo container */
+        .logo-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .brand-logo {
+            background: linear-gradient(135deg, #E63946, #D90429);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px 4px 12px 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.35);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            transform: rotate(3deg);
+        }
+        .brand-logo:hover {
+            transform: scale(1.05) rotate(0deg);
+        }
+        .brand-logo svg { width: 26px; height: 26px; }
+
+        .welcome-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #F5F7FA;
+            margin-top: 1.25rem;
+            margin-bottom: 0.1rem;
+            text-align: center;
+            line-height: 1.1;
+            letter-spacing: 0.05em;
+        }
+        html:not(.dark) .welcome-title { color: #0F172A; }
+
+        .welcome-subtitle {
+            font-size: 0.85rem;
+            color: rgba(245, 247, 250, 0.65);
+            text-align: center;
+            margin-bottom: 0.25rem;
+            font-weight: 400;
+        }
+        html:not(.dark) .welcome-subtitle { color: rgba(15, 23, 42, 0.65); }
+
+        /* Terms text */
+        .terms-text {
+            font-size: 0.7rem;
+            color: rgba(245, 247, 250, 0.7);
+        }
+        html:not(.dark) .terms-text { color: #475569; }
+
+        .terms-link {
+            color: #E63946;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .terms-link:hover {
+            text-decoration: underline;
+            color: #D90429;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1rem 0 0.8rem;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(230, 57, 70, 0.2);
+        }
+        .divider span {
+            font-size: 0.7rem;
+            padding: 0 0.8rem;
+            color: rgba(245, 247, 250, 0.6);
+            font-weight: 600;
+        }
+        html:not(.dark) .divider span { color: #64748B; }
+
+        .custom-checkbox {
+            accent-color: #E63946;
+        }
+
+        a { transition: all 0.2s ease; }
+
+        /* Background decorative glow + tactical grid */
+        .bg-glow {
+            position: fixed;
+            top: -30%;
+            right: -20%;
+            width: 60%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(230, 57, 70, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bg-glow-left {
+            position: fixed;
+            bottom: -30%;
+            left: -20%;
+            width: 60%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(42, 157, 143, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        html:not(.dark) .bg-glow {
+            background: radial-gradient(circle, rgba(230, 57, 70, 0.06) 0%, transparent 70%);
+        }
+        html:not(.dark) .bg-glow-left {
+            background: radial-gradient(circle, rgba(42, 157, 143, 0.04) 0%, transparent 70%);
+        }
+
+        .tactical-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(230, 57, 70, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(230, 57, 70, 0.04) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+        }
+        html:not(.dark) .tactical-grid {
+            background-image: 
+                linear-gradient(rgba(230, 57, 70, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(230, 57, 70, 0.03) 1px, transparent 1px);
+        }
+
+        .container-tight {
+            max-width: 480px;
+            width: 100%;
+            padding: 0 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-height: 650px) {
+            .signup-card { padding: 0.8rem 1.5rem; transform: scale(0.94); transform-origin: center; }
+            .logo-center { margin-bottom: 0.3rem; }
+            .welcome-title { font-size: 1.4rem; margin-top: 0.25rem; }
+            .welcome-subtitle { font-size: 0.75rem; margin-bottom: 0.15rem; }
+            .signup-input { padding: 0.5rem 0.8rem 0.5rem 2.5rem; font-size: 0.8rem; }
+            .btn-ember { padding: 0.5rem 1rem; font-size: 0.85rem; }
+            .brand-logo { width: 36px; height: 36px; }
+            .brand-logo svg { width: 22px; height: 22px; }
+            .theme-toggle-wrapper { top: 8px; right: 8px; }
+            .toggle-btn { width: 34px; height: 34px; font-size: 0.8rem; }
+            .divider { margin: 0.6rem 0; }
+            .social-btn { padding: 0.4rem 0.5rem; font-size: 0.75rem; }
+        }
+
+        @media (max-width: 380px) {
+            .signup-card { padding: 1.2rem 1.2rem; border-radius: 4px 32px 4px 32px; }
+            .welcome-title { font-size: 1.4rem; }
+            .signup-input { padding: 0.6rem 0.8rem 0.6rem 2.6rem; font-size: 0.8rem; }
+            .social-btn { padding: 0.4rem 0.3rem; font-size: 0.75rem; gap: 0.3rem; }
+            .social-btn i { font-size: 0.9rem; }
+        }
+
+        @media (max-width: 480px) {
+            .theme-toggle-wrapper { top: 12px; right: 12px; }
+            [dir="rtl"] .theme-toggle-wrapper { left: 12px; right: auto; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="bg-glow"></div>
+    <div class="bg-glow-left"></div>
+    <div class="tactical-grid"></div>
+
+    <!-- ===== THEME TOGGLES — TOP-RIGHT ===== -->
+    <div class="theme-toggle-wrapper">
+        <button id="theme-toggle" class="toggle-btn" title="Dark / Light">
+            <i class="fas fa-moon dark:hidden text-sm"></i>
+            <i class="fas fa-sun hidden dark:inline text-sm"></i>
+        </button>
+        <button id="rtl-toggle" class="toggle-btn" title="RTL / LTR">
+            &#8644;
+        </button>
+    </div>
+
+    <!-- ===== SIGNUP CARD ===== -->
+    <div class="container-tight relative z-10">
+        <div class="signup-card animate-fade-in">
+
+            <!-- Logo + Welcome -->
+            <div class="logo-center">
+                <a href="index.html" class="flex items-center gap-3 group shrink-0">
+                    <div class="brand-logo">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="16" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.4" stroke-dasharray="4 2"/>
+                            <line x1="20" y1="4" x2="20" y2="10" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+                            <line x1="20" y1="30" x2="20" y2="36" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+                            <line x1="4" y1="20" x2="10" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+                            <line x1="30" y1="20" x2="36" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M20 12C15.6 12 12 15.6 12 20C12 22.8 13.4 25.2 15.6 26.6L20 30L24.4 26.6C26.6 25.2 28 22.8 28 20C28 15.6 24.4 12 20 12Z" fill="#FFFFFF"/>
+                            <path d="M14.5 19C14.5 17.5 16 16.5 20 16.5C24 16.5 25.5 17.5 25.5 19C25.5 20.5 24 21 20 21C16 21 14.5 20.5 14.5 19Z" fill="#E63946"/>
+                        </svg>
+                    </div>
+                    <span class="text-2xl font-display font-extrabold tracking-wider text-slate-900 dark:text-white leading-none">
+                        CROSS<span class="text-ember">FIRE</span>
+                    </span>
+                </a>
+
+                <h1 class="welcome-title">Create Account</h1>
+                <p class="welcome-subtitle">Join the arena to book sessions, buy gear &amp; track your stats</p>
+            </div>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="space-y-3.5" action="login.html" method="GET">
+
+                <!-- Full Name -->
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-ember input-icon">
+                        <i class="fas fa-user w-4 text-sm"></i>
+                    </span>
+                    <input type="text" id="fullName" name="name" placeholder="Full name" required
+                        class="signup-input text-sm md:text-sm">
+                </div>
+
+                <!-- Email -->
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-ember input-icon">
+                        <i class="fas fa-envelope w-4 text-sm"></i>
+                    </span>
+                    <input type="email" id="email" name="email" placeholder="Email address" required
+                        class="signup-input text-sm md:text-sm">
+                </div>
+
+                <!-- Password -->
+                <div class="password-wrapper">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-ember input-icon">
+                        <i class="fas fa-lock w-4 text-sm"></i>
+                    </span>
+                    <input type="password" id="signup-password" name="password" placeholder="Password" required
+                        class="signup-input text-sm md:text-sm">
+                    <button type="button" class="toggle-password" data-target="signup-password" aria-label="Show password">
+                        <i class="far fa-eye-slash"></i>
+                    </button>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="password-wrapper">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-ember input-icon">
+                        <i class="fas fa-lock w-4 text-sm"></i>
+                    </span>
+                    <input type="password" id="signup-confirm-password" name="confirm_password"
+                        placeholder="Confirm password" required class="signup-input text-sm md:text-sm">
+                    <button type="button" class="toggle-password" data-target="signup-confirm-password" aria-label="Show password">
+                        <i class="far fa-eye-slash"></i>
+                    </button>
+                </div>
+
+                <!-- Terms -->
+                <div class="flex items-start space-x-2 rtl:space-x-reverse mt-1">
+                    <input type="checkbox" id="terms"
+                        class="mt-0.5 rounded border-gray-600 custom-checkbox" required>
+                    <label for="terms" class="terms-text">
+                        I agree to the <a href="#" class="terms-link" id="termsLink">Terms of Service</a> and
+                        <a href="#" class="terms-link" id="privacyLink">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn-ember mt-1">
+                    Create Account <i class="fas fa-user-plus ml-2"></i>
+                </button>
+            </form>
+
+            <!-- Divider + Social -->
+            <div class="divider">
+                <span>or sign up with</span>
+            </div>
+
+            <div class="flex gap-3">
+                <button class="social-btn" id="googleSignupBtn">
+                    <i class="fab fa-google"></i>
+                    <span>Google</span>
+                </button>
+                <button class="social-btn" id="appleSignupBtn">
+                    <i class="fab fa-apple"></i>
+                    <span>Apple</span>
+                </button>
+            </div>
+
+            <!-- Login link -->
+            <div class="mt-4 text-center">
+                <span class="text-xs text-slate-400 dark:text-gray-400">Already a CROSSFIRE player?</span>
+                <a href="login.html"
+                    class="text-xs font-semibold text-ember ml-1 rtl:mr-1 hover:underline">
+                    Sign in
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Theme Toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            function setTheme(isDark) {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+                const moon = themeBtn?.querySelector('.fa-moon');
+                const sun = themeBtn?.querySelector('.fa-sun');
+                if (isDark) { moon?.classList.add('hidden'); sun?.classList.remove('hidden'); }
+                else { moon?.classList.remove('hidden'); sun?.classList.add('hidden'); }
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            }
+            if (themeBtn) {
+                themeBtn.addEventListener('click', () => {
+                    setTheme(!document.documentElement.classList.contains('dark'));
+                });
+            }
+            const savedTheme = localStorage.getItem('theme');
+            setTheme(savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches));
+
+            // 2. RTL Toggle
+            const rtlBtn = document.getElementById('rtl-toggle');
+            function setRTL(isRTL) {
+                document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+                localStorage.setItem('dir', isRTL ? 'rtl' : 'ltr');
+            }
+            const savedDir = localStorage.getItem('dir');
+            setRTL(savedDir === 'rtl');
+            if (rtlBtn) {
+                rtlBtn.addEventListener('click', () => {
+                    setRTL(document.documentElement.getAttribute('dir') !== 'rtl');
+                });
+            }
+
+            // 3. Password Toggle
+            document.querySelectorAll('.toggle-password').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    if (input) {
+                        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                        input.setAttribute('type', type);
+                        const icon = this.querySelector('i');
+                        if (icon) {
+                            icon.classList.toggle('fa-eye-slash');
+                            icon.classList.toggle('fa-eye');
+                        }
+                    }
+                });
+            });
+
+            // 4. Social signup placeholders
+            document.getElementById('googleSignupBtn').addEventListener('click', function() {
+                alert('Sign up with Google — coming soon. For now, use the demo form.');
+            });
+            document.getElementById('appleSignupBtn').addEventListener('click', function() {
+                alert('Sign up with Apple — coming soon. For now, use the demo form.');
+            });
+
+            // 5. Demo signup — validate then redirect to login
+            document.getElementById('signupForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const password = document.getElementById('signup-password').value;
+                const confirm = document.getElementById('signup-confirm-password').value;
+                if (password !== confirm) {
+                    alert('Passwords do not match. Please try again.');
+                    return;
+                }
+                if (password.length < 6) {
+                    alert('Password must be at least 6 characters long.');
+                    return;
+                }
+                if (!document.getElementById('terms').checked) {
+                    alert('Please agree to the Terms of Service and Privacy Policy.');
+                    return;
+                }
+                alert('Account created successfully! Please sign in to continue.');
+                window.location.href = 'login.html';
+            });
+
+            // 6. Terms & Privacy links
+            document.getElementById('termsLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Terms of Service — coming soon.');
+            });
+            document.getElementById('privacyLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Privacy Policy — coming soon.');
+            });
+        });
+    </script>
+
+</body>
+</html>

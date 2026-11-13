@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CROSSFIRE · Tactical Paintball Arena · Home 2</title>
+
+  <!-- Favicon: Tactical crosshair & paint splash emblem -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' rx='9' fill='%23E63946'/%3E%3Ccircle cx='18' cy='18' r='12' stroke='%23FFFFFF' stroke-width='2' fill='none' stroke-opacity='0.5' stroke-dasharray='3 2'/%3E%3Cline x1='18' y1='3' x2='18' y2='9' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='18' y1='27' x2='18' y2='33' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='3' y1='18' x2='9' y2='18' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='27' y1='18' x2='33' y2='18' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='18' r='4.5' fill='%23FFFFFF'/%3E%3Ccircle cx='18' cy='18' r='2' fill='%23E63946'/%3E%3C/svg%3E" />
+
+  <!-- Tailwind + fallback -->
+  <script src="tailwind.js"></script>
+  <script>
+    if (typeof tailwind === 'undefined') {
+      document.write('<script src="https://cdn.tailwindcss.com"><\/script>');
+    }
+  </script>
+
+  <!-- Prevent theme flash -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
+  <!-- Tailwind config – Crossfire Paintball Arena palette -->
+  <script>
+    window.tailwind = window.tailwind || {};
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            porcelain: '#FFFFFF',
+            arena: '#0B0F14',
+            ember: '#E63946',
+            flare: '#F4A261',
+            neon: '#2A9D8F',
+            sand: '#E9C46A',
+            ash: '#1E2A32',
+            smoke: '#F5F7FA',
+            steel: '#3A4A57',
+            fuchsia: '#D90429',
+          },
+          fontFamily: {
+            'display': ['"Bebas Neue"', 'sans-serif'],
+            'body': ['"Inter"', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'float-slow': 'floatSlow 7s ease-in-out infinite',
+            'pulse-soft': 'pulseSoft 4s ease-in-out infinite',
+            'fade-up': 'fadeUp 0.8s ease-out',
+            'shimmer': 'shimmer 2.8s infinite',
+            'pop': 'pop 0.3s ease-out',
+            'slide-in-right': 'slideInRight 0.8s ease-out',
+            'zoom-in-out': 'zoomInOut 1.2s ease-out',
+          },
+          keyframes: {
+            floatSlow: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-8px)' } },
+            pulseSoft: { '0%, 100%': { opacity: '0.8' }, '50%': { opacity: '1' } },
+            fadeUp: { '0%': { transform: 'translateY(28px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+            shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+            pop: { '0%': { transform: 'scale(0.9)', opacity: '0' }, '100%': { transform: 'scale(1)', opacity: '1' } },
+            slideInRight: { '0%': { transform: 'translateX(60px)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } },
+            zoomInOut: { '0%': { transform: 'scale(0.92)', opacity: '0.8' }, '100%': { transform: 'scale(1)', opacity: '1' } },
+          },
+        }
+      }
+    };
+  </script>
+
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+  <style>
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    body {
+      background-color: #F8FAFC;
+      color: #0F172A;
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .dark body {
+      background-color: #0B0F14;
+      color: #F5F7FA;
+    }
+    body::-webkit-scrollbar { width: 6px; }
+    body::-webkit-scrollbar-track { background: #E2E8F0; }
+    .dark body::-webkit-scrollbar-track { background: #1E2A32; }
+    body::-webkit-scrollbar-thumb { background: #E63946; border-radius: 20px; }
+
+    /* ===== BUTTONS (same as reference for consistency) ===== */
+    .btn-ember {
+      background: #E63946;
+      color: #FFFFFF;
+      font-weight: 700;
+      border-radius: 6px 20px 6px 20px;
+      transition: all 0.35s;
+      box-shadow: 0 4px 14px rgba(230,57,70,0.35);
+      letter-spacing: 0.5px;
+    }
+    .btn-ember:hover {
+      background: #D90429;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(230,57,70,0.55);
+      border-radius: 20px 6px 20px 6px;
+    }
+    .btn-ghost-arena {
+      border: 1.5px solid rgba(230,57,70,0.6);
+      color: #E63946;
+      background: transparent;
+      border-radius: 6px 20px 6px 20px;
+      font-weight: 600;
+      transition: all 0.35s;
+    }
+    .dark .btn-ghost-arena {
+      color: #F4A261;
+    }
+    .btn-ghost-arena:hover {
+      background: #E63946;
+      color: #FFFFFF;
+      border-color: #E63946;
+      border-radius: 20px 6px 20px 6px;
+    }
+
+    /* ===== NAV (same) ===== */
+    .nav-link {
+      position: relative;
+      font-weight: 600;
+      transition: color 0.25s;
+      text-decoration: none !important;
+      color: #334155;
+      white-space: nowrap;
+    }
+    .dark .nav-link {
+      color: #F1F5F9;
+    }
+    .nav-link:hover {
+      color: #E63946 !important;
+    }
+    .nav-link.active {
+      color: #E63946 !important;
+      font-weight: 700;
+    }
+
+    .dropdown-arena {
+      position: relative;
+    }
+    .dropdown-arena-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 200px;
+      background: #FFFFFF;
+      border-radius: 12px 24px 12px 24px;
+      padding: 0.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.25s ease;
+      z-index: 1000;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+    }
+    .dark .dropdown-arena-menu {
+      background: #1E2A32;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.6);
+      border: 1px solid rgba(230,57,70,0.3);
+    }
+    .dropdown-arena::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 12px;
+    }
+    .dropdown-arena:hover .dropdown-arena-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .dropdown-item-arena {
+      display: flex;
+      align-items: center;
+      padding: 0.65rem 1.25rem;
+      transition: all 0.2s;
+      color: #334155;
+      font-size: 0.92rem;
+      font-weight: 500;
+      border-radius: 8px 16px 8px 16px;
+      margin: 0.15rem 0;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .dark .dropdown-item-arena {
+      color: #F1F5F9;
+    }
+    .dropdown-item-arena:hover {
+      background: rgba(230, 57, 70, 0.1);
+      color: #E63946;
+      padding-left: 1.5rem;
+    }
+    .dark .dropdown-item-arena:hover {
+      background: rgba(230, 57, 70, 0.18);
+      color: #F4A261;
+      padding-left: 1.5rem;
+    }
+
+    /* ===== MOBILE MENU (same) ===== */
+    .mobile-menu-arena {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .dark .mobile-menu-arena {
+      background: #1E2A32;
+      border-bottom-color: rgba(230,57,70,0.25);
+    }
+    .mobile-menu-arena.open { max-height: 85vh; overflow-y: auto; }
+
+    /* ===== SOCIAL ===== */
+    .social-icon-arena {
+      width: 40px; height: 40px;
+      border-radius: 8px 16px 8px 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(42, 157, 143, 0.15);
+      color: #F5F7FA;
+      transition: all 0.3s;
+    }
+    .social-icon-arena:hover {
+      background: #E63946;
+      color: #FFFFFF;
+      transform: translateY(-3px) rotate(3deg);
+    }
+
+    /* RTL */
+    [dir="rtl"] .ml-auto { margin-left: 0 !important; margin-right: auto !important; }
+    [dir="rtl"] .ms-1 { margin-left: 0 !important; margin-right: 0.25rem !important; }
+    [dir="rtl"] .dropdown-arena-menu { left: auto; right: 0; }
+    [dir="rtl"] .dropdown-item-arena i { margin-right: 0; margin-left: 0.75rem; }
+
+    /* ============================================================
+       HOME 2 – NEW & UNIQUE STYLES
+       ============================================================ */
+
+    /* ----- Centered Hero (Home 2) ----- */
+    .hero-split-section {
+      position: relative;
+      background: #0B0F14;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(230, 57, 70, 0.2);
+    }
+    .hero-split-section .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.42) saturate(1.25);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero-split-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 45%, rgba(230,57,70,0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .hero-split-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(11,15,20,0.85) 0%, rgba(11,15,20,0.45) 45%, rgba(11,15,20,0.96) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* ----- Zone Tabs (unique) ----- */
+    .zone-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+    .zone-tab {
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px 12px 40px 12px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 1.5px solid rgba(230,57,70,0.25);
+      background: transparent;
+      color: #475569;
+    }
+    .dark .zone-tab {
+      color: #94A3B8;
+      border-color: rgba(230,57,70,0.3);
+    }
+    .zone-tab:hover {
+      border-color: #E63946;
+      color: #E63946;
+    }
+    .zone-tab.active {
+      background: #E63946;
+      color: #FFFFFF;
+      border-color: #E63946;
+      box-shadow: 0 8px 20px -6px rgba(230,57,70,0.5);
+    }
+
+    .zone-panel {
+      display: none;
+      animation: fadeUp 0.5s ease-out;
+    }
+    .zone-panel.active {
+      display: block;
+    }
+
+    .zone-showcase-card {
+      background: #FFFFFF;
+      border-radius: 24px 6px 24px 6px;
+      border: 1px solid rgba(226,232,240,0.9);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+      transition: all 0.35s;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .dark .zone-showcase-card {
+      background: #1E2A32;
+      border-color: rgba(230,57,70,0.25);
+      box-shadow: 0 12px 32px -8px rgba(0,0,0,0.6);
+    }
+    .zone-showcase-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px -12px rgba(230,57,70,0.3);
+      border-color: rgba(230,57,70,0.5);
+    }
+    .zone-showcase-card .img-wrap {
+      height: 200px;
+      overflow: hidden;
+    }
+    .zone-showcase-card .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s;
+    }
+    .zone-showcase-card:hover .img-wrap img {
+      transform: scale(1.05);
+    }
+
+    /* ----- Loadout / Gear Cards (unique) ----- */
+    .loadout-card {
+      background: #FFFFFF;
+      border-radius: 4px 32px 4px 32px;
+      border: 1px solid rgba(226,232,240,0.9);
+      padding: 2rem 1.5rem;
+      transition: all 0.35s;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .dark .loadout-card {
+      background: #1E2A32;
+      border-color: rgba(230,57,70,0.25);
+      box-shadow: 0 8px 24px -6px rgba(0,0,0,0.4);
+    }
+    .loadout-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #E63946, #F4A261, #E63946);
+      background-size: 200% 100%;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .loadout-card:hover::before {
+      opacity: 1;
+      animation: shimmer 2s infinite;
+    }
+    .loadout-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 48px -12px rgba(230,57,70,0.25);
+      border-color: rgba(230,57,70,0.5);
+    }
+    .loadout-card .icon-badge {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px 6px 16px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      background: rgba(230,57,70,0.12);
+      color: #E63946;
+      font-size: 1.6rem;
+      transition: all 0.3s;
+    }
+    .loadout-card:hover .icon-badge {
+      background: #E63946;
+      color: #FFFFFF;
+      transform: scale(1.05) rotate(-3deg);
+    }
+
+    /* ----- "Why Crossfire" bento-ish grid (unique) ----- */
+    .bento-item {
+      background: #FFFFFF;
+      border-radius: 20px;
+      border: 1px solid rgba(226,232,240,0.9);
+      padding: 1.8rem 1.5rem;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .dark .bento-item {
+      background: #1E2A32;
+      border-color: rgba(230,57,70,0.2);
+    }
+    .bento-item:hover {
+      border-color: rgba(230,57,70,0.5);
+      box-shadow: 0 16px 36px -10px rgba(230,57,70,0.2);
+      transform: translateY(-4px);
+    }
+    .bento-item .bento-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px 4px 14px 4px;
+      background: rgba(230,57,70,0.1);
+      color: #E63946;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ----- Testimonial ribbon (unique) ----- */
+    .ribbon-testimonial {
+      background: linear-gradient(135deg, #0B0F14 0%, #1A252F 100%);
+      border-radius: 40px 8px 40px 8px;
+      padding: 2.5rem 3rem;
+      color: #F5F7FA;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(230,57,70,0.25);
+    }
+    .ribbon-testimonial::before {
+      content: '“';
+      position: absolute;
+      top: -10px;
+      left: 30px;
+      font-size: 8rem;
+      font-family: 'Bebas Neue', sans-serif;
+      color: rgba(230,57,70,0.2);
+      line-height: 1;
+    }
+    .ribbon-testimonial::after {
+      content: '”';
+      position: absolute;
+      bottom: -50px;
+      right: 30px;
+      font-size: 8rem;
+      font-family: 'Bebas Neue', sans-serif;
+      color: rgba(230,57,70,0.2);
+      line-height: 1;
+    }
+
+    .text-balance { text-wrap: balance; }
+    .glow-ember { text-shadow: 0 0 30px rgba(230,57,70,0.5); }
+  </style>
+</head>
+<body>
+
+<!-- ======== NAVIGATION (EXACT COPY FROM REFERENCE) ======== -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-[#0B0F14]/95 backdrop-blur-md border-b border-slate-200/90 dark:border-ember/20 shadow-sm dark:shadow-[0_4px_25px_rgba(0,0,0,0.4)] transition-colors duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20 md:h-22 gap-4">
+
+      <!-- Logo: CROSSFIRE (Short & Clean) -->
+      <a href="index.html" class="flex items-center gap-2.5 shrink-0 group">
+        <div class="w-10 h-10 bg-gradient-to-br from-ember to-[#D90429] rounded-xl flex items-center justify-center shadow-md shadow-ember/30 group-hover:scale-105 transition-all duration-300">
+          <!-- Tactical Paintball Crosshair & Shield Emblem -->
+          <svg viewBox="0 0 40 40" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="16" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.4" stroke-dasharray="4 2"/>
+            <line x1="20" y1="4" x2="20" y2="10" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="20" y1="30" x2="20" y2="36" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="4" y1="20" x2="10" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="30" y1="20" x2="36" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M20 12C15.6 12 12 15.6 12 20C12 22.8 13.4 25.2 15.6 26.6L20 30L24.4 26.6C26.6 25.2 28 22.8 28 20C28 15.6 24.4 12 20 12Z" fill="#FFFFFF"/>
+            <path d="M14.5 19C14.5 17.5 16 16.5 20 16.5C24 16.5 25.5 17.5 25.5 19C25.5 20.5 24 21 20 21C16 21 14.5 20.5 14.5 19Z" fill="#E63946"/>
+            <circle cx="13" cy="13" r="1.5" fill="#F4A261"/>
+            <circle cx="27" cy="14" r="1.2" fill="#F4A261"/>
+            <circle cx="26" cy="27" r="1.3" fill="#F4A261"/>
+          </svg>
+        </div>
+        <span class="text-xl md:text-2xl font-display font-extrabold tracking-wider text-slate-900 dark:text-white leading-none">
+          CROSS<span class="text-ember">FIRE</span>
+        </span>
+      </a>
+
+      <!-- Desktop Nav (lg and up) - Every link has whitespace-nowrap -->
+      <div class="hidden lg:flex items-center gap-5 xl:gap-7">
+        <!-- Home Dropdown -->
+        <div class="dropdown-arena relative group/nav">
+          <a href="index.html" class="nav-link active flex items-center gap-1 py-2 text-[15px] font-semibold whitespace-nowrap">
+            <span>Home</span>
+            <i class="fas fa-chevron-down text-[10px] opacity-70 group-hover/nav:rotate-180 transition-transform duration-200"></i>
+          </a>
+          <div class="dropdown-arena-menu">
+            <a class="dropdown-item-arena" href="index.html">Home 1</a>
+            <a class="dropdown-item-arena text-ember font-semibold bg-ember/10" href="home2.html">Home 2</a>
+          </div>
+        </div>
+
+        <a class="nav-link whitespace-nowrap text-[15px]" href="about.html">About</a>
+        <a class="nav-link whitespace-nowrap text-[15px]" href="zones.html">Zones</a>
+        <a class="nav-link whitespace-nowrap text-[15px]" href="book.html">Book a Session</a>
+        <a class="nav-link whitespace-nowrap text-[15px]" href="packages.html">Packages</a>
+        <a class="nav-link whitespace-nowrap text-[15px]" href="contact.html">Contact</a>
+
+        <!-- Portal Dropdown -->
+        <div class="dropdown-arena relative group/nav">
+          <button class="nav-link flex items-center gap-1 py-2 text-[15px] font-semibold whitespace-nowrap cursor-pointer">
+            <span>Portal</span>
+            <i class="fas fa-chevron-down text-[10px] opacity-70 group-hover/nav:rotate-180 transition-transform duration-200"></i>
+          </button>
+          <div class="dropdown-arena-menu">
+            <a class="dropdown-item-arena" href="client.html">Player Dashboard</a>
+            <a class="dropdown-item-arena" href="admin.html">Admin Dashboard</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right actions -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <a href="login.html" class="hidden sm:inline-flex btn-ember h-10 px-5 text-sm items-center justify-center gap-2 whitespace-nowrap shadow-md">
+          <i class="fas fa-user-circle"></i> <span>Login</span>
+        </a>
+        <button id="theme-toggle" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-ember/20 text-slate-700 dark:text-ember hover:bg-slate-200 dark:hover:bg-ember/30 hover:scale-105 transition-all flex items-center justify-center border border-slate-200 dark:border-ember/30 cursor-pointer" aria-label="Toggle theme">
+          <i class="fas fa-moon dark:hidden text-sm"></i>
+          <i class="fas fa-sun hidden dark:inline text-sm"></i>
+        </button>
+        <button id="rtl-toggle" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-ember/20 text-slate-700 dark:text-ember hover:bg-slate-200 dark:hover:bg-ember/30 hover:scale-105 transition-all flex items-center justify-center font-bold text-sm border border-slate-200 dark:border-ember/30 cursor-pointer" aria-label="Toggle RTL">
+          ⇄
+        </button>
+        <button id="mobile-toggle" class="lg:hidden w-10 h-10 rounded-xl bg-ember text-white flex items-center justify-center shadow-md shrink-0 hover:bg-ember/90 transition cursor-pointer" aria-label="Toggle navigation">
+          <i class="fas fa-bars text-sm"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu-arena lg:hidden rounded-b-3xl">
+      <div class="py-4 px-3 space-y-1">
+        <div class="py-1">
+          <button onclick="document.getElementById('home-mobile-drop').classList.toggle('hidden'); document.getElementById('home-mobile-icon').classList.toggle('rotate-180')" class="w-full flex items-center justify-between py-3 px-4 font-semibold text-ember border-l-4 border-ember bg-ember/10 rounded-lg transition cursor-pointer">
+            <span>Home</span>
+            <i id="home-mobile-icon" class="fas fa-chevron-down text-xs opacity-60 transition-transform duration-300 rotate-180"></i>
+          </button>
+          <div id="home-mobile-drop" class="pl-2 space-y-1 mt-1 mb-2">
+            <a class="block py-2.5 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="index.html">Home 1</a>
+            <a class="block py-2.5 px-4 font-semibold text-ember bg-ember/10 border-l-4 border-ember rounded-lg transition" href="home2.html">Home 2</a>
+          </div>
+        </div>
+        <a class="block py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="about.html">About</a>
+        <a class="block py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="zones.html">Zones</a>
+        <a class="block py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition whitespace-nowrap" href="book.html">Book a Session</a>
+        <a class="block py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="packages.html">Packages</a>
+        <a class="block py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="contact.html">Contact</a>
+
+        <!-- Portal Dropdown (Mobile) -->
+        <div class="py-1">
+          <button onclick="document.getElementById('portal-mobile-drop').classList.toggle('hidden'); document.getElementById('portal-mobile-icon').classList.toggle('rotate-180')" class="w-full flex items-center justify-between py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition cursor-pointer">
+            <span>Portal</span>
+            <i id="portal-mobile-icon" class="fas fa-chevron-down text-xs opacity-60 transition-transform duration-300"></i>
+          </button>
+          <div id="portal-mobile-drop" class="hidden pl-2 space-y-1 mt-1 mb-2">
+            <a class="block py-2.5 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="client.html">Player Dashboard</a>
+            <a class="block py-2.5 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="admin.html">Admin Dashboard</a>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-3 pt-5 mt-3 border-t border-slate-200 dark:border-ember/20">
+          <a class="text-center btn-ember h-10 font-semibold flex items-center justify-center gap-2" href="login.html">
+            <i class="fas fa-user-circle"></i> Login
+          </a>
+          <div class="flex gap-3">
+            <button id="mobile-theme-toggle" class="flex-1 h-10 rounded-xl bg-slate-100 dark:bg-ember/20 text-slate-700 dark:text-ember text-sm font-semibold flex items-center gap-2 justify-center border border-slate-200 dark:border-ember/30">
+              <i class="fas fa-moon dark:hidden"></i><i class="fas fa-sun hidden dark:inline"></i> Theme
+            </button>
+            <button id="mobile-rtl-toggle" class="flex-1 h-10 rounded-xl bg-slate-100 dark:bg-ember/20 text-slate-700 dark:text-ember text-sm font-semibold flex items-center gap-2 justify-center border border-slate-200 dark:border-ember/30">
+              ⇄ RTL
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ======== HOME 2 – HERO SECTION ======== -->
+<section class="hero-split-section pt-32 sm:pt-36 md:pt-40 pb-20 lg:pb-28 relative overflow-hidden">
+  <img src="assets/home2-hero-bg.jpg" alt="Crossfire Tournament Speedball Arena" class="hero-bg-img" />
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center">
+
+    <!-- Status Pill -->
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-ember/20 text-ember border border-ember/30 text-xs font-bold tracking-widest uppercase mb-6 backdrop-blur-sm shadow-sm">
+      <i class="fas fa-bolt text-ember"></i>
+      <span>NEW SEASON · TOURNAMENT ARENA</span>
+    </div>
+
+    <!-- Headline (Unique to Home 2: Precision & Speed, well-proportioned) -->
+    <h1 class="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold leading-[1.12] mb-5 text-white text-center">
+      Dominate with <span class="text-ember glow-ember">precision</span> &amp; speed<br/>
+      <span class="text-2xl sm:text-3xl md:text-4xl font-bold text-white/90 block mt-2">competitive tactical combat</span>
+    </h1>
+
+    <!-- Subheading -->
+    <p class="text-base sm:text-lg text-slate-200 font-light mb-8 max-w-2xl mx-auto leading-relaxed text-center">
+      Six multi-tiered combat fields, rapid-fire electronic markers, and competitive tournament matchmaking.<br class="hidden sm:inline" />
+      Step onto the turf, command your squad, and claim the championship.
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto">
+      <a href="book.html" class="btn-ember px-8 py-3.5 text-sm sm:text-base font-bold inline-flex items-center justify-center gap-2 shadow-xl shadow-ember/25 w-full sm:w-auto">
+        <i class="fas fa-crosshairs"></i> Join a Match
+      </a>
+      <a href="packages.html" class="btn-ghost-arena px-8 py-3.5 text-sm sm:text-base font-semibold inline-flex items-center justify-center gap-2 w-full sm:w-auto">
+        <i class="fas fa-gift"></i> View Packages
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======== SECTION 2: ARENA PERFORMANCE STATS ======== -->
+<section class="py-16 sm:py-20 bg-slate-50 dark:bg-[#0E141B] border-y border-slate-200/80 dark:border-ember/15 relative overflow-hidden transition-colors duration-300">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+    <!-- Section Heading -->
+    <div class="text-center mb-12 animate-fade-up">
+      <span class="inline-flex items-center gap-2 text-ember px-0 py-1.5 text-xs font-bold uppercase tracking-[0.2em] mb-3">
+        <span class="w-8 h-px bg-ember"></span> Arena Stats <span class="w-8 h-px bg-ember"></span>
+      </span>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-slate-900 dark:text-white leading-tight">
+        Combat by the <span class="text-ember">numbers</span>
+      </h2>
+      <p class="text-slate-600 dark:text-slate-300 mt-3 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+        Real-world operations, tournament battles, and certified player ratings from our active combat arenas.
+      </p>
+    </div>
+
+    <!-- 4 Stats Cards Grid -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto animate-fade-up">
+      <!-- Card 1: Combat Zones -->
+      <div class="p-6 sm:p-7 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#1E2A32] border border-slate-200/90 dark:border-ember/25 shadow-md shadow-slate-200/40 dark:shadow-none text-center group hover:border-ember/60 hover:-translate-y-1.5 transition-all duration-300">
+        <span class="font-display font-extrabold text-4xl sm:text-5xl text-ember block mb-2 leading-none">6</span>
+        <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 block">Combat Zones</span>
+      </div>
+
+      <!-- Card 2: Sessions Played -->
+      <div class="p-6 sm:p-7 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#1E2A32] border border-slate-200/90 dark:border-ember/25 shadow-md shadow-slate-200/40 dark:shadow-none text-center group hover:border-ember/60 hover:-translate-y-1.5 transition-all duration-300">
+        <span class="font-display font-extrabold text-4xl sm:text-5xl text-ember block mb-2 leading-none">12k+</span>
+        <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 block">Sessions Played</span>
+      </div>
+
+      <!-- Card 3: Player Rating -->
+      <div class="p-6 sm:p-7 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#1E2A32] border border-slate-200/90 dark:border-ember/25 shadow-md shadow-slate-200/40 dark:shadow-none text-center group hover:border-ember/60 hover:-translate-y-1.5 transition-all duration-300">
+        <span class="font-display font-extrabold text-4xl sm:text-5xl text-ember block mb-2 leading-none">4.9★</span>
+        <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 block">Player Rating</span>
+      </div>
+
+      <!-- Card 4: Missions -->
+      <div class="p-6 sm:p-7 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#1E2A32] border border-slate-200/90 dark:border-ember/25 shadow-md shadow-slate-200/40 dark:shadow-none text-center group hover:border-ember/60 hover:-translate-y-1.5 transition-all duration-300">
+        <span class="font-display font-extrabold text-4xl sm:text-5xl text-ember block mb-2 leading-none">25+</span>
+        <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 block">Missions</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======== ZONE SHOWCASE WITH TABS (UNIQUE) ======== -->
+<section class="py-24 bg-slate-50 dark:bg-[#0B0F14] relative overflow-hidden transition-colors duration-300">
+  <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style="background-image: radial-gradient(circle at 20% 30%, #E63946 0.5px, transparent 0.5px); background-size: 24px 24px;"></div>
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="text-center mb-12 animate-fade-up">
+      <span class="inline-flex items-center gap-2 text-ember px-0 py-1.5 text-xs font-bold uppercase tracking-[0.2em] mb-4">
+        <span class="w-8 h-px bg-ember"></span> Zone Selector <span class="w-8 h-px bg-ember"></span>
+      </span>
+      <h2 class="text-4xl md:text-5xl font-display font-extrabold text-slate-900 dark:text-white leading-tight">
+        Pick your <span class="text-ember">battlefield</span>
+      </h2>
+      <p class="text-slate-600 dark:text-slate-300 mt-4 max-w-xl mx-auto text-lg">
+        Switch between our signature zones — each with unique terrain, objectives, and difficulty.
+      </p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="zone-tabs" id="zone-tabs">
+      <button class="zone-tab active" data-zone="speedball">Speedball</button>
+      <button class="zone-tab" data-zone="urban">Urban Combat</button>
+      <button class="zone-tab" data-zone="woodland">Woodland</button>
+      <button class="zone-tab" data-zone="nightops">Night Ops</button>
+    </div>
+
+    <!-- Panels -->
+    <div id="zone-panels">
+      <!-- Speedball Panel -->
+      <div class="zone-panel active" id="panel-speedball">
+        <div class="grid md:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
+          <div class="zone-showcase-card">
+            <div class="img-wrap">
+              <img src="assets/zone-speedball-h2.jpg" alt="Speedball Arena" />
+            </div>
+            <div class="p-7 flex flex-col flex-1">
+              <div class="flex items-center justify-between mb-3">
+                <span class="bg-ember text-white text-[10px] font-bold px-3 py-1 rounded-md tracking-wider uppercase shadow">Most Popular</span>
+                <span class="text-ember font-display font-extrabold text-2xl">$45</span>
+              </div>
+              <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-2">Speedball Arena</h3>
+              <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">Fast-paced inflatable bunker field. Quick rounds, non-stop action. Perfect for adrenaline junkies.</p>
+              <a href="zones.html" class="text-ember text-xs font-bold tracking-wide uppercase hover:underline flex items-center gap-1.5 mt-auto">
+                Explore Zone <i class="fas fa-arrow-right text-[9px]"></i>
+              </a>
+            </div>
+          </div>
+          <div class="p-4">
+            <h4 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-4">Zone Highlights</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> 12 inflatable bunkers &amp; snake side</li>
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> 5-minute matches, scorekeeper included</li>
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> Spectator viewing deck</li>
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> Rental gear available</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Urban Combat Panel -->
+      <div class="zone-panel" id="panel-urban">
+        <div class="grid md:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
+          <div class="zone-showcase-card">
+            <div class="img-wrap">
+              <img src="assets/zone-urban-h2.jpg" alt="Urban Combat Zone" />
+            </div>
+            <div class="p-7 flex flex-col flex-1">
+              <div class="flex items-center justify-between mb-3">
+                <span class="bg-slate-800 text-white text-[10px] font-bold px-3 py-1 rounded-md tracking-wider uppercase shadow">Advanced</span>
+                <span class="text-ember font-display font-extrabold text-2xl">$55</span>
+              </div>
+              <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-2">Urban Combat CQB</h3>
+              <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">Mock city with buildings, barricades, and tight corners. Tactical teamwork is essential.</p>
+              <a href="zones.html" class="text-ember text-xs font-bold tracking-wide uppercase hover:underline flex items-center gap-1.5 mt-auto">
+                Explore Zone <i class="fas fa-arrow-right text-[9px]"></i>
+              </a>
+            </div>
+          </div>
+          <div class="p-4">
+            <h4 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-4">Zone Highlights</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> Multi-level buildings &amp; rooftops</li>
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> Close-quarters bunkers and alleys</li>
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> Referees on every match</li>
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> Recommended for ages 14+</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Woodland Panel -->
+      <div class="zone-panel" id="panel-woodland">
+        <div class="grid md:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
+          <div class="zone-showcase-card">
+            <div class="img-wrap">
+              <img src="assets/zone-woods-h2.jpg" alt="Woodland Zone" />
+            </div>
+            <div class="p-7 flex flex-col flex-1">
+              <div class="flex items-center justify-between mb-3">
+                <span class="bg-teal-600 text-white text-[10px] font-bold px-3 py-1 rounded-md tracking-wider uppercase shadow">Beginner Friendly</span>
+                <span class="text-ember font-display font-extrabold text-2xl">$40</span>
+              </div>
+              <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-2">Woodland Forest Zone</h3>
+              <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">Sprawling forest with natural cover and long-range engagements. Ideal for first-timers.</p>
+              <a href="zones.html" class="text-ember text-xs font-bold tracking-wide uppercase hover:underline flex items-center gap-1.5 mt-auto">
+                Explore Zone <i class="fas fa-arrow-right text-[9px]"></i>
+              </a>
+            </div>
+          </div>
+          <div class="p-4">
+            <h4 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-4">Zone Highlights</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> 5 acres of natural woodland</li>
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> Bunkers, streams, and bridges</li>
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> Low-impact paint option</li>
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> Great for birthday groups</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Night Ops Panel -->
+      <div class="zone-panel" id="panel-nightops">
+        <div class="grid md:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
+          <div class="zone-showcase-card">
+            <div class="img-wrap">
+              <img src="assets/h1.jpg" alt="Night Ops Zone" />
+            </div>
+            <div class="p-7 flex flex-col flex-1">
+              <div class="flex items-center justify-between mb-3">
+                <span class="bg-purple-800 text-white text-[10px] font-bold px-3 py-1 rounded-md tracking-wider uppercase shadow">Limited Availability</span>
+                <span class="text-ember font-display font-extrabold text-2xl">$65</span>
+              </div>
+              <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-2">Night Ops Tactical</h3>
+              <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">Low-light combat with tracer rounds and LED markers. The ultimate thrill after dark.</p>
+              <a href="zones.html" class="text-ember text-xs font-bold tracking-wide uppercase hover:underline flex items-center gap-1.5 mt-auto">
+                Explore Zone <i class="fas fa-arrow-right text-[9px]"></i>
+              </a>
+            </div>
+          </div>
+          <div class="p-4">
+            <h4 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-4">Zone Highlights</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> Tracer paint &amp; glow markers</li>
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> Floodlit basecamps &amp; strobe lights</li>
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> Friday &amp; Saturday nights only</li>
+              <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300"><i class="fas fa-check-circle text-ember mt-0.5"></i> Advanced players recommended</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== GEAR / LOADOUT SECTION (UNIQUE) ======== -->
+<section class="py-24 bg-white dark:bg-[#0E141B] border-y border-slate-200/80 dark:border-ember/15 transition-colors duration-300 relative overflow-hidden">
+  <div class="absolute -top-32 -left-32 w-80 h-80 bg-ember/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-ember/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="text-center mb-16 animate-fade-up">
+      <span class="inline-flex items-center gap-2 text-ember px-0 py-1.5 text-xs font-bold uppercase tracking-[0.2em] mb-4">
+        <span class="w-8 h-px bg-ember"></span> Gear Up <span class="w-8 h-px bg-ember"></span>
+      </span>
+      <h2 class="text-4xl md:text-5xl font-display font-extrabold text-slate-900 dark:text-white leading-tight">
+        Your <span class="text-ember">loadout</span> awaits
+      </h2>
+      <p class="text-slate-600 dark:text-slate-300 mt-4 max-w-xl mx-auto text-lg">
+        Every rental includes pro-grade protective gear. Upgrade to premium markers for maximum performance.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Gear 1 -->
+      <div class="loadout-card animate-fade-up" style="animation-delay: 0.1s;">
+        <div class="icon-badge"><i class="fas fa-mask"></i></div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Full-Face Mask</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Thermal anti-fog lens. ASTM-certified. Included in every rental.</p>
+      </div>
+      <!-- Gear 2 -->
+      <div class="loadout-card animate-fade-up" style="animation-delay: 0.2s;">
+        <div class="icon-badge"><i class="fas fa-vest"></i></div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Armored Vest</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Chest &amp; neck protection. Lightweight, breathable, adjustable.</p>
+      </div>
+      <!-- Gear 3 -->
+      <div class="loadout-card animate-fade-up" style="animation-delay: 0.3s;">
+        <div class="icon-badge"><i class="fas fa-gun"></i></div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Marker + Air</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Chronographed daily. .68 caliber semi-auto with 20oz tank.</p>
+      </div>
+      <!-- Gear 4 -->
+      <div class="loadout-card animate-fade-up" style="animation-delay: 0.4s;">
+        <div class="icon-badge"><i class="fas fa-crosshairs"></i></div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Paintballs</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Field-grade paint. 200 rounds included in Rec Ball package.</p>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <a href="packages.html" class="btn-ember px-8 py-3.5 text-sm inline-flex items-center gap-2 shadow-lg">
+        <i class="fas fa-box-open"></i> View All Packages
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======== WHY CROSSFIRE – BENTO GRID (UNIQUE) ======== -->
+<section class="py-24 bg-slate-50 dark:bg-[#0B0F14] transition-colors duration-300">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16 animate-fade-up">
+      <span class="inline-flex items-center gap-2 text-ember px-0 py-1.5 text-xs font-bold uppercase tracking-[0.2em] mb-4">
+        <span class="w-8 h-px bg-ember"></span> Why Crossfire <span class="w-8 h-px bg-ember"></span>
+      </span>
+      <h2 class="text-4xl md:text-5xl font-display font-extrabold text-slate-900 dark:text-white leading-tight">
+        Built for <span class="text-ember">competition</span>
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <!-- Bento 1 -->
+      <div class="bento-item animate-fade-up" style="animation-delay: 0.1s;">
+        <div class="bento-icon"><i class="fas fa-shield-halved"></i></div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Pro Safety Standards</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">ASTM-certified masks, daily chrono checks, and on-field referees. Your safety is non-negotiable.</p>
+      </div>
+      <!-- Bento 2 -->
+      <div class="bento-item animate-fade-up" style="animation-delay: 0.15s;">
+        <div class="bento-icon"><i class="fas fa-tachometer-alt"></i></div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Real-Time Scoring</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Every match is tracked. Check your eliminations, accuracy, and MVP status on the player dashboard.</p>
+      </div>
+      <!-- Bento 3 -->
+      <div class="bento-item animate-fade-up" style="animation-delay: 0.2s;">
+        <div class="bento-icon"><i class="fas fa-users"></i></div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Squad-First Design</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Private staging areas, team lockers, and group packages. Built for teams of 5 to 50.</p>
+      </div>
+      <!-- Bento 4 (wide) -->
+      <div class="bento-item sm:col-span-2 lg:col-span-2 animate-fade-up" style="animation-delay: 0.25s;">
+        <div class="flex flex-col sm:flex-row items-start gap-5">
+          <div class="bento-icon shrink-0"><i class="fas fa-trophy"></i></div>
+          <div>
+            <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Tournament-Ready Facilities</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Host your next tournament at Crossfire. Regulation bunkers, scoreboards, PA system, and spectator seating. We've hosted regional qualifiers and corporate leagues.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Bento 5 -->
+      <div class="bento-item animate-fade-up" style="animation-delay: 0.3s;">
+        <div class="bento-icon"><i class="fas fa-clock"></i></div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Flexible Sessions</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Weekday walk-ins, weekend leagues, and after-dark Night Ops. We fit your schedule.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== RIBBON TESTIMONIAL (UNIQUE) ======== -->
+<section class="py-20 bg-white dark:bg-[#0E141B] border-y border-slate-200/80 dark:border-ember/15 transition-colors duration-300">
+  <div class="container mx-auto px-6">
+    <div class="ribbon-testimonial max-w-4xl mx-auto animate-fade-up">
+      <div class="relative z-10">
+        <div class="flex gap-1 mb-5">
+          <i class="fas fa-star text-ember text-sm"></i>
+          <i class="fas fa-star text-ember text-sm"></i>
+          <i class="fas fa-star text-ember text-sm"></i>
+          <i class="fas fa-star text-ember text-sm"></i>
+          <i class="fas fa-star text-ember text-sm"></i>
+        </div>
+        <p class="text-xl md:text-2xl font-display leading-relaxed mb-6 text-white">
+          "Crossfire isn't just paintball — it's a full tactical experience. The Night Ops zone is absolutely unreal. Best squad outing we've ever had."
+        </p>
+        <div class="flex items-center gap-4">
+          <img src="assets/review-jake.jpg" alt="Jake M." class="w-12 h-12 rounded-xl object-cover border-2 border-ember/40" />
+          <div>
+            <strong class="text-white text-base block">Jake M.</strong>
+            <span class="text-ember text-xs font-semibold tracking-wide">Night Ops · Squad Leader</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== CTA (same style but adjusted text) ======== -->
+<section class="py-20 bg-gradient-to-r from-ember via-[#D90429] to-ember text-white">
+  <div class="container mx-auto px-6 text-center">
+    <div class="max-w-3xl mx-auto animate-fade-up">
+      <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-5">Lock in your <span class="text-white">squad</span></h2>
+      <p class="text-white/90 text-lg mb-10 max-w-xl mx-auto font-light">Book a session today and experience the most competitive paintball arena in the region.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="book.html" class="bg-white text-ember hover:bg-slate-100 px-8 py-3.5 rounded-lg font-bold shadow-lg hover:scale-105 transition inline-flex items-center gap-2 text-sm">
+          <i class="fas fa-calendar-check"></i> Book a Session
+        </a>
+        <a href="packages.html" class="border-2 border-white/80 text-white px-8 py-3.5 rounded-lg font-semibold hover:bg-white hover:text-ember transition inline-flex items-center gap-2 text-sm">
+          <i class="fas fa-gift"></i> View Packages
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FOOTER (EXACT COPY FROM REFERENCE) ======== -->
+<footer class="bg-slate-950 text-slate-300 pt-16 pb-8 border-t border-slate-800 dark:border-ember/20">
+  <div class="container mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <!-- Col 1: Brand & Logo -->
+      <div class="text-center md:text-start">
+        <a href="index.html" class="inline-flex items-center justify-center md:justify-start gap-2.5 mb-6 group hover:opacity-90 transition">
+          <div class="w-10 h-10 bg-gradient-to-br from-ember to-[#D90429] rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition duration-300">
+            <svg viewBox="0 0 40 40" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="16" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.4" stroke-dasharray="4 2"/>
+              <line x1="20" y1="4" x2="20" y2="10" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="20" y1="30" x2="20" y2="36" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="4" y1="20" x2="10" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="30" y1="20" x2="36" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M20 12C15.6 12 12 15.6 12 20C12 22.8 13.4 25.2 15.6 26.6L20 30L24.4 26.6C26.6 25.2 28 22.8 28 20C28 15.6 24.4 12 20 12Z" fill="#FFFFFF"/>
+              <path d="M14.5 19C14.5 17.5 16 16.5 20 16.5C24 16.5 25.5 17.5 25.5 19C25.5 20.5 24 21 20 21C16 21 14.5 20.5 14.5 19Z" fill="#E63946"/>
+            </svg>
+          </div>
+          <span class="text-xl md:text-2xl font-display font-extrabold tracking-wider text-white leading-none">
+            CROSS<span class="text-ember">FIRE</span>
+          </span>
+        </a>
+        <p class="mb-5 text-slate-400 text-sm leading-relaxed">Six immersive tactical zones. Pro tournament-grade gear. Pure combat adrenaline guaranteed.</p>
+        <div class="flex justify-center md:justify-start gap-3">
+          <a href="#" class="social-icon-arena" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-icon-arena" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="social-icon-arena" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <!-- Col 2: Zones -->
+      <div class="text-center md:text-start">
+        <h4 class="text-ember font-bold text-sm mb-5 uppercase tracking-widest">Battle Zones</h4>
+        <ul class="space-y-2.5">
+          <li><a href="zones.html" class="hover:text-ember transition block text-slate-400 text-sm">Speedball Arena</a></li>
+          <li><a href="zones.html" class="hover:text-ember transition block text-slate-400 text-sm">Urban Combat CQB</a></li>
+          <li><a href="zones.html" class="hover:text-ember transition block text-slate-400 text-sm">Woodland Forest Zone</a></li>
+          <li><a href="zones.html" class="hover:text-ember transition block text-slate-400 text-sm">Night Ops Tactical</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Quick Links -->
+      <div class="text-center md:text-start">
+        <h4 class="text-ember font-bold text-sm mb-5 uppercase tracking-widest">Quick Links</h4>
+        <ul class="space-y-2.5">
+          <li><a href="about.html" class="hover:text-ember transition block text-slate-400 text-sm">About Arena</a></li>
+          <li><a href="packages.html" class="hover:text-ember transition block text-slate-400 text-sm">Packages &amp; Pricing</a></li>
+          <li><a href="book.html" class="hover:text-ember transition block text-slate-400 text-sm">Book a Session</a></li>
+          <li><a href="client.html" class="hover:text-ember transition block text-slate-400 text-sm">Player Dashboard</a></li>
+          <li><a href="admin.html" class="hover:text-ember transition block text-slate-400 text-sm">Admin Dashboard</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Visit & Contact -->
+      <div class="text-center md:text-start">
+        <h4 class="text-ember font-bold text-sm mb-5 uppercase tracking-widest">Visit Arena</h4>
+        <ul class="space-y-3">
+          <li class="flex justify-center md:justify-start gap-3 text-slate-400 text-sm"><i class="fas fa-map-marker-alt text-ember mt-0.5"></i><span>4500 Tactical Way, Combat District</span></li>
+          <li class="flex justify-center md:justify-start gap-3 text-slate-400 text-sm"><i class="fas fa-phone text-ember"></i><span>(555) 727-4SPA</span></li>
+          <li class="flex justify-center md:justify-start gap-3 text-slate-400 text-sm"><i class="fas fa-envelope text-ember"></i><span>hello@crossfirearena.com</span></li>
+          <li class="flex justify-center md:justify-start gap-3 text-slate-400 text-sm"><i class="fas fa-clock text-ember"></i><span>Mon–Fri 9am – 7pm · Sat 10am – 4pm</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+      <p>&copy; 2026 CROSSFIRE. <i class="fas fa-heart text-ember mx-1"></i> Dominate the field.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ======== SCRIPTS (same theme/rtl/mobile + zone tabs) ======== -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Theme toggle (Light / Dark)
+    const themeBtns = document.querySelectorAll('#theme-toggle, #mobile-theme-toggle');
+
+    function applyTheme(isDark) {
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    themeBtns.forEach(btn => {
+      btn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isDark = !document.documentElement.classList.contains('dark');
+        applyTheme(isDark);
+      });
+    });
+
+    // RTL Toggle
+    function setRTL(isRTL) {
+      const html = document.documentElement;
+      if (isRTL === 'rtl' || isRTL === true) {
+        html.setAttribute('dir', 'rtl');
+        localStorage.setItem('dir', 'rtl');
+      } else {
+        html.setAttribute('dir', 'ltr');
+        localStorage.setItem('dir', 'ltr');
+      }
+    }
+
+    const savedDir = localStorage.getItem('dir');
+    if (savedDir === 'rtl') {
+      document.documentElement.setAttribute('dir', 'rtl');
+    } else {
+      document.documentElement.setAttribute('dir', 'ltr');
+    }
+
+    const rtlBtn = document.getElementById('rtl-toggle');
+    if (rtlBtn) {
+      rtlBtn.addEventListener('click', () => {
+        const currentDir = document.documentElement.getAttribute('dir');
+        setRTL(currentDir === 'rtl' ? 'ltr' : 'rtl');
+      });
+    }
+
+    const mobileRtlBtn = document.getElementById('mobile-rtl-toggle');
+    if (mobileRtlBtn) {
+      mobileRtlBtn.addEventListener('click', () => {
+        const currentDir = document.documentElement.getAttribute('dir');
+        setRTL(currentDir === 'rtl' ? 'ltr' : 'rtl');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileToggle = document.getElementById('mobile-toggle');
+        if (mobileMenu && mobileMenu.classList.contains('open')) {
+          mobileMenu.classList.remove('open');
+          if (mobileToggle && mobileToggle.querySelector('i')) {
+            mobileToggle.querySelector('i').classList.remove('fa-times');
+            mobileToggle.querySelector('i').classList.add('fa-bars');
+          }
+        }
+      });
+    }
+
+    // Mobile menu toggle
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileToggle && mobileMenu) {
+      mobileToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('open');
+        const icon = mobileToggle.querySelector('i');
+        if (mobileMenu.classList.contains('open')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        } else {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      });
+
+      mobileMenu.querySelectorAll('a:not(#mobile-rtl-toggle)').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          if (mobileToggle.querySelector('i')) {
+            mobileToggle.querySelector('i').classList.remove('fa-times');
+            mobileToggle.querySelector('i').classList.add('fa-bars');
+          }
+        });
+      });
+    }
+
+    // ===== ZONE TABS (Home 2 unique) =====
+    const tabs = document.querySelectorAll('.zone-tab');
+    const panels = document.querySelectorAll('.zone-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active from all tabs and panels
+        tabs.forEach(t => t.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+
+        // Activate clicked tab
+        tab.classList.add('active');
+        const zone = tab.getAttribute('data-zone');
+        const targetPanel = document.getElementById(`panel-${zone}`);
+        if (targetPanel) targetPanel.classList.add('active');
+      });
+    });
+  });
+</script>
+</body>
+</html>

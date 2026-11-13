@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CROSSFIRE · About the Arena · Our Story</title>
+
+  <!-- Favicon: Tactical crosshair & paint splash emblem -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' rx='9' fill='%23E63946'/%3E%3Ccircle cx='18' cy='18' r='12' stroke='%23FFFFFF' stroke-width='2' fill='none' stroke-opacity='0.5' stroke-dasharray='3 2'/%3E%3Cline x1='18' y1='3' x2='18' y2='9' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='18' y1='27' x2='18' y2='33' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='3' y1='18' x2='9' y2='18' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='27' y1='18' x2='33' y2='18' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='18' cy='18' r='4.5' fill='%23FFFFFF'/%3E%3Ccircle cx='18' cy='18' r='2' fill='%23E63946'/%3E%3C/svg%3E" />
+
+  <!-- Tailwind + fallback -->
+  <script src="tailwind.js"></script>
+  <script>
+    if (typeof tailwind === 'undefined') {
+      document.write('<script src="https://cdn.tailwindcss.com"><\/script>');
+    }
+  </script>
+
+  <!-- Prevent theme flash -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
+  <!-- Tailwind config – Crossfire Paintball Arena palette -->
+  <script>
+    window.tailwind = window.tailwind || {};
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            porcelain: '#FFFFFF',
+            arena: '#0B0F14',
+            ember: '#E63946',
+            flare: '#F4A261',
+            neon: '#2A9D8F',
+            sand: '#E9C46A',
+            ash: '#1E2A32',
+            smoke: '#F5F7FA',
+            steel: '#3A4A57',
+            fuchsia: '#D90429',
+          },
+          fontFamily: {
+            'display': ['"Bebas Neue"', 'sans-serif'],
+            'body': ['"Inter"', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'float-slow': 'floatSlow 7s ease-in-out infinite',
+            'pulse-soft': 'pulseSoft 4s ease-in-out infinite',
+            'fade-up': 'fadeUp 0.8s ease-out',
+            'shimmer': 'shimmer 2.8s infinite',
+            'pop': 'pop 0.3s ease-out',
+            'slide-in-right': 'slideInRight 0.8s ease-out',
+            'zoom-in-out': 'zoomInOut 1.2s ease-out',
+            'drift': 'drift 14s ease-in-out infinite',
+          },
+          keyframes: {
+            floatSlow: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-8px)' } },
+            pulseSoft: { '0%, 100%': { opacity: '0.8' }, '50%': { opacity: '1' } },
+            fadeUp: { '0%': { transform: 'translateY(28px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+            shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+            pop: { '0%': { transform: 'scale(0.9)', opacity: '0' }, '100%': { transform: 'scale(1)', opacity: '1' } },
+            slideInRight: { '0%': { transform: 'translateX(60px)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } },
+            zoomInOut: { '0%': { transform: 'scale(0.92)', opacity: '0.8' }, '100%': { transform: 'scale(1)', opacity: '1' } },
+            drift: { '0%, 100%': { transform: 'translate(0, 0)' }, '50%': { transform: 'translate(20px, -20px)' } },
+          },
+        }
+      }
+    };
+  </script>
+
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+  <style>
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    body {
+      background-color: #F8FAFC;
+      color: #0F172A;
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .dark body {
+      background-color: #0B0F14;
+      color: #F5F7FA;
+    }
+    body::-webkit-scrollbar { width: 6px; }
+    body::-webkit-scrollbar-track { background: #E2E8F0; }
+    .dark body::-webkit-scrollbar-track { background: #1E2A32; }
+    body::-webkit-scrollbar-thumb { background: #E63946; border-radius: 20px; }
+
+    /* ===== BUTTONS (same as reference for consistency) ===== */
+    .btn-ember {
+      background: #E63946;
+      color: #FFFFFF;
+      font-weight: 700;
+      border-radius: 6px 20px 6px 20px;
+      transition: all 0.35s;
+      box-shadow: 0 4px 14px rgba(230,57,70,0.35);
+      letter-spacing: 0.5px;
+    }
+    .btn-ember:hover {
+      background: #D90429;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(230,57,70,0.55);
+      border-radius: 20px 6px 20px 6px;
+    }
+    .btn-ghost-arena {
+      border: 1.5px solid rgba(230,57,70,0.6);
+      color: #E63946;
+      background: transparent;
+      border-radius: 6px 20px 6px 20px;
+      font-weight: 600;
+      transition: all 0.35s;
+    }
+    .dark .btn-ghost-arena {
+      color: #F4A261;
+    }
+    .btn-ghost-arena:hover {
+      background: #E63946;
+      color: #FFFFFF;
+      border-color: #E63946;
+      border-radius: 20px 6px 20px 6px;
+    }
+
+    /* ===== NAV (same) ===== */
+    .nav-link {
+      position: relative;
+      font-weight: 600;
+      transition: color 0.25s;
+      text-decoration: none !important;
+      color: #334155;
+      white-space: nowrap;
+    }
+    .dark .nav-link {
+      color: #F1F5F9;
+    }
+    .nav-link:hover {
+      color: #E63946 !important;
+    }
+    .nav-link.active {
+      color: #E63946 !important;
+      font-weight: 700;
+    }
+
+    .dropdown-arena {
+      position: relative;
+    }
+    .dropdown-arena-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 200px;
+      background: #FFFFFF;
+      border-radius: 12px 24px 12px 24px;
+      padding: 0.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.25s ease;
+      z-index: 1000;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+    }
+    .dark .dropdown-arena-menu {
+      background: #1E2A32;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.6);
+      border: 1px solid rgba(230,57,70,0.3);
+    }
+    .dropdown-arena::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 12px;
+    }
+    .dropdown-arena:hover .dropdown-arena-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .dropdown-item-arena {
+      display: flex;
+      align-items: center;
+      padding: 0.65rem 1.25rem;
+      transition: all 0.2s;
+      color: #334155;
+      font-size: 0.92rem;
+      font-weight: 500;
+      border-radius: 8px 16px 8px 16px;
+      margin: 0.15rem 0;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .dark .dropdown-item-arena {
+      color: #F1F5F9;
+    }
+    .dropdown-item-arena:hover {
+      background: rgba(230, 57, 70, 0.1);
+      color: #E63946;
+      padding-left: 1.5rem;
+    }
+    .dark .dropdown-item-arena:hover {
+      background: rgba(230, 57, 70, 0.18);
+      color: #F4A261;
+      padding-left: 1.5rem;
+    }
+
+    /* ===== MOBILE MENU (same) ===== */
+    .mobile-menu-arena {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .dark .mobile-menu-arena {
+      background: #1E2A32;
+      border-bottom-color: rgba(230,57,70,0.25);
+    }
+    .mobile-menu-arena.open { max-height: 85vh; overflow-y: auto; }
+
+    /* ===== SOCIAL ===== */
+    .social-icon-arena {
+      width: 40px; height: 40px;
+      border-radius: 8px 16px 8px 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(42, 157, 143, 0.15);
+      color: #F5F7FA;
+      transition: all 0.3s;
+    }
+    .social-icon-arena:hover {
+      background: #E63946;
+      color: #FFFFFF;
+      transform: translateY(-3px) rotate(3deg);
+    }
+
+    /* RTL */
+    [dir="rtl"] .ml-auto { margin-left: 0 !important; margin-right: auto !important; }
+    [dir="rtl"] .ms-1 { margin-left: 0 !important; margin-right: 0.25rem !important; }
+    [dir="rtl"] .dropdown-arena-menu { left: auto; right: 0; }
+    [dir="rtl"] .dropdown-item-arena i { margin-right: 0; margin-left: 0.75rem; }
+
+    /* ============================================================
+       ABOUT PAGE – UNIQUE STYLES
+       ============================================================ */
+
+    /* ----- Hero (Mission Statement) ----- */
+        .about-hero .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+      opacity: 0.28;
+      filter: brightness(0.4) saturate(1.2);
+      z-index: 1;
+      pointer-events: none;
+    }
+.about-hero {
+      position: relative;
+      padding: 9rem 1.5rem 5rem;
+      background: #0B0F14;
+      overflow: hidden;
+      text-align: center;
+    }
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(230,57,70,0.18) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(42,157,143,0.12) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .about-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 1;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    }
+    .about-hero-content {
+      position: relative;
+      z-index: 10;
+      max-width: 54rem;
+      margin: 0 auto;
+    }
+
+    /* ----- Mission Split Card ----- */
+    .mission-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: 0 40px 0 40px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px -20px rgba(0,0,0,0.25);
+      background: #FFFFFF;
+      border: 1px solid rgba(226,232,240,0.9);
+    }
+    .dark .mission-split {
+      background: #1E2A32;
+      border-color: rgba(230,57,70,0.25);
+      box-shadow: 0 24px 60px -20px rgba(0,0,0,0.7);
+    }
+    .mission-split .mission-img {
+      position: relative;
+      min-height: 320px;
+      overflow: hidden;
+    }
+    .mission-split .mission-img img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.1);
+    }
+    .mission-split .mission-text {
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    @media (max-width: 768px) {
+      .mission-split { grid-template-columns: 1fr; }
+      .mission-split .mission-img { min-height: 240px; }
+      .mission-split .mission-text { padding: 2rem 1.5rem; }
+    }
+
+    /* ----- Timeline (unique) ----- */
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1rem 0;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, transparent, #E63946 10%, #E63946 90%, transparent);
+      transform: translateX(-50%);
+    }
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 1.5rem 2.5rem;
+      box-sizing: border-box;
+    }
+    .timeline-item:nth-child(odd) { left: 0; text-align: right; }
+    .timeline-item:nth-child(even) { left: 50%; text-align: left; }
+    .timeline-dot {
+      position: absolute;
+      top: 2.2rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #E63946;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 0 0 4px rgba(230,57,70,0.2);
+      z-index: 2;
+    }
+    .dark .timeline-dot { border-color: #1E2A32; }
+    .timeline-item:nth-child(odd) .timeline-dot { right: -9px; }
+    .timeline-item:nth-child(even) .timeline-dot { left: -9px; }
+    .timeline-card {
+      background: #FFFFFF;
+      border-radius: 16px 4px 16px 4px;
+      padding: 1.5rem 1.75rem;
+      border: 1px solid rgba(226,232,240,0.9);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+    }
+    .dark .timeline-card {
+      background: #1E2A32;
+      border-color: rgba(230,57,70,0.25);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .timeline-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(230,57,70,0.5);
+      box-shadow: 0 16px 36px -10px rgba(230,57,70,0.25);
+    }
+    @media (max-width: 768px) {
+      .timeline::before { left: 20px; }
+      .timeline-item { width: 100%; left: 0 !important; text-align: left !important; padding: 1rem 1rem 1rem 3.5rem; }
+      .timeline-item .timeline-dot { left: 11px !important; right: auto !important; }
+    }
+
+    /* ----- Team Card (unique) ----- */
+    .team-card {
+      position: relative;
+      border-radius: 20px 4px 20px 4px;
+      overflow: hidden;
+      background: #FFFFFF;
+      border: 1px solid rgba(226,232,240,0.9);
+      transition: all 0.35s;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    }
+    .dark .team-card {
+      background: #1E2A32;
+      border-color: rgba(230,57,70,0.25);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .team-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(230,57,70,0.6);
+      box-shadow: 0 24px 48px -12px rgba(230,57,70,0.35);
+    }
+    .team-card .team-img {
+      height: 240px;
+      overflow: hidden;
+      position: relative;
+    }
+    .team-card .team-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s;
+    }
+    .team-card:hover .team-img img {
+      transform: scale(1.06);
+    }
+    .team-card .team-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(11,15,20,0.7) 100%);
+    }
+
+    /* ----- Value Card (unique) ----- */
+    .value-card {
+      background: #FFFFFF;
+      border-radius: 4px 28px 4px 28px;
+      padding: 2rem 1.75rem;
+      border: 1px solid rgba(226,232,240,0.9);
+      transition: all 0.35s;
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+    }
+    .dark .value-card {
+      background: #1E2A32;
+      border-color: rgba(230,57,70,0.25);
+    }
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #E63946, #F4A261, #E63946);
+      background-size: 200% 100%;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .value-card:hover::before {
+      opacity: 1;
+      animation: shimmer 2s infinite;
+    }
+    .value-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(230,57,70,0.5);
+      box-shadow: 0 20px 44px -12px rgba(230,57,70,0.25);
+    }
+    .value-card .value-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px 6px 16px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(230,57,70,0.1);
+      color: #E63946;
+      font-size: 1.4rem;
+      margin-bottom: 1.25rem;
+      transition: all 0.3s;
+    }
+    .value-card:hover .value-icon {
+      background: #E63946;
+      color: #FFFFFF;
+      transform: scale(1.05) rotate(-3deg);
+    }
+
+    /* ----- Gallery (unique) ----- */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 180px;
+      gap: 12px;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px 4px 12px 4px;
+      cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(11,15,20,0.6) 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+    .gallery-item.span-2 { grid-column: span 2; }
+    .gallery-item.tall { grid-row: span 2; }
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; }
+      .gallery-item.span-2 { grid-column: span 2; }
+      .gallery-item.tall { grid-row: span 1; }
+    }
+
+    /* ----- Stats Strip (unique) ----- */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(226,232,240,0.9);
+      background: #FFFFFF;
+    }
+    .dark .stat-strip {
+      background: #1E2A32;
+      border-color: rgba(230,57,70,0.25);
+    }
+    .stat-strip > div {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-right: 1px solid rgba(226,232,240,0.9);
+      transition: background 0.3s;
+    }
+    .dark .stat-strip > div {
+      border-right-color: rgba(230,57,70,0.2);
+    }
+    .stat-strip > div:last-child { border-right: none; }
+    .stat-strip > div:hover {
+      background: rgba(230,57,70,0.04);
+    }
+    @media (max-width: 640px) {
+      .stat-strip { grid-template-columns: repeat(2, 1fr); }
+      .stat-strip > div:nth-child(2) { border-right: none; }
+      .stat-strip > div:nth-child(1), .stat-strip > div:nth-child(2) {
+        border-bottom: 1px solid rgba(226,232,240,0.9);
+      }
+      .dark .stat-strip > div:nth-child(1),
+      .dark .stat-strip > div:nth-child(2) {
+        border-bottom-color: rgba(230,57,70,0.2);
+      }
+    }
+
+    .text-balance { text-wrap: balance; }
+    .glow-ember { text-shadow: 0 0 30px rgba(230,57,70,0.5); }
+  </style>
+</head>
+<body>
+
+<!-- ======== NAVIGATION (EXACT COPY FROM REFERENCE) ======== -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-[#0B0F14]/95 backdrop-blur-md border-b border-slate-200/90 dark:border-ember/20 shadow-sm dark:shadow-[0_4px_25px_rgba(0,0,0,0.4)] transition-colors duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20 md:h-22 gap-4">
+
+      <!-- Logo: CROSSFIRE (Short & Clean) -->
+      <a href="index.html" class="flex items-center gap-2.5 shrink-0 group">
+        <div class="w-10 h-10 bg-gradient-to-br from-ember to-[#D90429] rounded-xl flex items-center justify-center shadow-md shadow-ember/30 group-hover:scale-105 transition-all duration-300">
+          <!-- Tactical Paintball Crosshair & Shield Emblem -->
+          <svg viewBox="0 0 40 40" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="16" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.4" stroke-dasharray="4 2"/>
+            <line x1="20" y1="4" x2="20" y2="10" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="20" y1="30" x2="20" y2="36" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="4" y1="20" x2="10" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="30" y1="20" x2="36" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M20 12C15.6 12 12 15.6 12 20C12 22.8 13.4 25.2 15.6 26.6L20 30L24.4 26.6C26.6 25.2 28 22.8 28 20C28 15.6 24.4 12 20 12Z" fill="#FFFFFF"/>
+            <path d="M14.5 19C14.5 17.5 16 16.5 20 16.5C24 16.5 25.5 17.5 25.5 19C25.5 20.5 24 21 20 21C16 21 14.5 20.5 14.5 19Z" fill="#E63946"/>
+            <circle cx="13" cy="13" r="1.5" fill="#F4A261"/>
+            <circle cx="27" cy="14" r="1.2" fill="#F4A261"/>
+            <circle cx="26" cy="27" r="1.3" fill="#F4A261"/>
+          </svg>
+        </div>
+        <span class="text-xl md:text-2xl font-display font-extrabold tracking-wider text-slate-900 dark:text-white leading-none">
+          CROSS<span class="text-ember">FIRE</span>
+        </span>
+      </a>
+
+      <!-- Desktop Nav (lg and up) - Every link has whitespace-nowrap -->
+      <div class="hidden lg:flex items-center gap-5 xl:gap-7">
+        <!-- Home Dropdown -->
+        <div class="dropdown-arena relative group/nav">
+          <a href="index.html" class="nav-link flex items-center gap-1 py-2 text-[15px] font-semibold whitespace-nowrap">
+            <span>Home</span>
+            <i class="fas fa-chevron-down text-[10px] opacity-70 group-hover/nav:rotate-180 transition-transform duration-200"></i>
+          </a>
+          <div class="dropdown-arena-menu">
+            <a class="dropdown-item-arena" href="index.html">Home 1</a>
+            <a class="dropdown-item-arena" href="home2.html">Home 2</a>
+          </div>
+        </div>
+
+        <a class="nav-link active whitespace-nowrap text-[15px]" href="about.html">About</a>
+        <a class="nav-link whitespace-nowrap text-[15px]" href="zones.html">Zones</a>
+        <a class="nav-link whitespace-nowrap text-[15px]" href="book.html">Book a Session</a>
+        <a class="nav-link whitespace-nowrap text-[15px]" href="packages.html">Packages</a>
+        <a class="nav-link whitespace-nowrap text-[15px]" href="contact.html">Contact</a>
+
+        <!-- Portal Dropdown -->
+        <div class="dropdown-arena relative group/nav">
+          <button class="nav-link flex items-center gap-1 py-2 text-[15px] font-semibold whitespace-nowrap cursor-pointer">
+            <span>Portal</span>
+            <i class="fas fa-chevron-down text-[10px] opacity-70 group-hover/nav:rotate-180 transition-transform duration-200"></i>
+          </button>
+          <div class="dropdown-arena-menu">
+            <a class="dropdown-item-arena" href="client.html">Player Dashboard</a>
+            <a class="dropdown-item-arena" href="admin.html">Admin Dashboard</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right actions -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <a href="login.html" class="hidden sm:inline-flex btn-ember h-10 px-5 text-sm items-center justify-center gap-2 whitespace-nowrap shadow-md">
+          <i class="fas fa-user-circle"></i> <span>Login</span>
+        </a>
+        <button id="theme-toggle" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-ember/20 text-slate-700 dark:text-ember hover:bg-slate-200 dark:hover:bg-ember/30 hover:scale-105 transition-all flex items-center justify-center border border-slate-200 dark:border-ember/30 cursor-pointer" aria-label="Toggle theme">
+          <i class="fas fa-moon dark:hidden text-sm"></i>
+          <i class="fas fa-sun hidden dark:inline text-sm"></i>
+        </button>
+        <button id="rtl-toggle" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-ember/20 text-slate-700 dark:text-ember hover:bg-slate-200 dark:hover:bg-ember/30 hover:scale-105 transition-all flex items-center justify-center font-bold text-sm border border-slate-200 dark:border-ember/30 cursor-pointer" aria-label="Toggle RTL">
+          ⇄
+        </button>
+        <button id="mobile-toggle" class="lg:hidden w-10 h-10 rounded-xl bg-ember text-white flex items-center justify-center shadow-md shrink-0 hover:bg-ember/90 transition cursor-pointer" aria-label="Toggle navigation">
+          <i class="fas fa-bars text-sm"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu-arena lg:hidden rounded-b-3xl">
+      <div class="py-4 px-3 space-y-1">
+        <div class="py-1">
+          <button onclick="document.getElementById('home-mobile-drop').classList.toggle('hidden'); document.getElementById('home-mobile-icon').classList.toggle('rotate-180')" class="w-full flex items-center justify-between py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition cursor-pointer">
+            <span>Home</span>
+            <i id="home-mobile-icon" class="fas fa-chevron-down text-xs opacity-60 transition-transform duration-300"></i>
+          </button>
+          <div id="home-mobile-drop" class="hidden pl-2 space-y-1 mt-1 mb-2">
+            <a class="block py-2.5 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="index.html">Home 1</a>
+            <a class="block py-2.5 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="home2.html">Home 2</a>
+          </div>
+        </div>
+        <a class="block py-3 px-4 font-semibold text-ember border-l-4 border-ember bg-ember/10 rounded-lg transition" href="about.html">About</a>
+        <a class="block py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="zones.html">Zones</a>
+        <a class="block py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition whitespace-nowrap" href="book.html">Book a Session</a>
+        <a class="block py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="packages.html">Packages</a>
+        <a class="block py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="contact.html">Contact</a>
+
+        <!-- Portal Dropdown (Mobile) -->
+        <div class="py-1">
+          <button onclick="document.getElementById('portal-mobile-drop').classList.toggle('hidden'); document.getElementById('portal-mobile-icon').classList.toggle('rotate-180')" class="w-full flex items-center justify-between py-3 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition cursor-pointer">
+            <span>Portal</span>
+            <i id="portal-mobile-icon" class="fas fa-chevron-down text-xs opacity-60 transition-transform duration-300"></i>
+          </button>
+          <div id="portal-mobile-drop" class="hidden pl-2 space-y-1 mt-1 mb-2">
+            <a class="block py-2.5 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="client.html">Player Dashboard</a>
+            <a class="block py-2.5 px-4 font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-ember/10 rounded-lg transition" href="admin.html">Admin Dashboard</a>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-3 pt-5 mt-3 border-t border-slate-200 dark:border-ember/20">
+          <a class="text-center btn-ember h-10 font-semibold flex items-center justify-center gap-2" href="login.html">
+            <i class="fas fa-user-circle"></i> Login
+          </a>
+          <div class="flex gap-3">
+            <button id="mobile-theme-toggle" class="flex-1 h-10 rounded-xl bg-slate-100 dark:bg-ember/20 text-slate-700 dark:text-ember text-sm font-semibold flex items-center gap-2 justify-center border border-slate-200 dark:border-ember/30">
+              <i class="fas fa-moon dark:hidden"></i><i class="fas fa-sun hidden dark:inline"></i> Theme
+            </button>
+            <button id="mobile-rtl-toggle" class="flex-1 h-10 rounded-xl bg-slate-100 dark:bg-ember/20 text-slate-700 dark:text-ember text-sm font-semibold flex items-center gap-2 justify-center border border-slate-200 dark:border-ember/30">
+              ⇄ RTL
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ======== ABOUT HERO ======== -->
+<section class="about-hero pt-32 sm:pt-36 md:pt-40 pb-16 sm:pb-20">
+  <img src="assets/a1.jpg" alt="About Crossfire Paintball" class="hero-bg-img" />
+  <div class="about-hero-content">
+    <span class="inline-flex items-center gap-2 bg-ember/20 text-ember px-4 py-1.5 rounded-lg text-xs font-bold tracking-widest uppercase mb-6 border border-ember/30 backdrop-blur-sm">
+      <i class="fas fa-shield-halved text-ember"></i> Est. 2019 · The Crossfire Story
+    </span>
+    <h1 class="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold leading-[1.12] mb-6 text-white break-words text-center">
+      We don't just host <span class="text-ember glow-ember">paintball</span><br/>
+      <span class="text-2xl sm:text-3xl md:text-4xl font-bold text-white/90 block mt-2">we engineer combat experiences</span>
+    </h1>
+    <p class="text-base sm:text-lg text-slate-200 font-light mb-8 max-w-2xl mx-auto leading-relaxed text-center">
+      Born from a passion for authentic tactical gameplay, Crossfire combines pro-grade armories, immersive terrain design, and certified referees for over 12,000 players.
+    </p>
+    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
+      <a href="book.html" class="btn-ember px-6 sm:px-8 py-3.5 text-sm sm:text-base inline-flex items-center justify-center gap-2 shadow-xl w-full sm:w-auto">
+        <i class="fas fa-calendar-check"></i> Book a Session
+      </a>
+      <a href="zones.html" class="btn-ghost-arena px-6 sm:px-8 py-3.5 text-sm sm:text-base inline-flex items-center justify-center gap-2 w-full sm:w-auto">
+        <i class="fas fa-map-marked-alt"></i> Explore the Zones
+      </a>
+    </div>
+
+    <!-- About trust indicators -->
+    <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-8 mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-white/15 w-full max-w-xl mx-auto text-center">
+      <div class="flex items-center gap-2">
+        <i class="fas fa-shield-halved text-ember text-xs sm:text-sm"></i>
+        <span class="text-slate-200 text-xs sm:text-sm font-medium">ASTM-Certified Gear</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <i class="fas fa-users text-ember text-xs sm:text-sm"></i>
+        <span class="text-slate-200 text-xs sm:text-sm font-medium">12k+ Active Players</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <i class="fas fa-medal text-ember text-xs sm:text-sm"></i>
+        <span class="text-slate-200 text-xs sm:text-sm font-medium">Pro Referee Staff</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== STAT STRIP ======== -->
+<section class="py-16 bg-slate-50 dark:bg-[#0B0F14] transition-colors duration-300">
+  <div class="container mx-auto px-6">
+    <div class="stat-strip max-w-4xl mx-auto animate-fade-up">
+      <div>
+        <div class="text-3xl md:text-4xl font-display font-extrabold text-ember mb-1">6</div>
+        <div class="text-[11px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold">Combat Zones</div>
+      </div>
+      <div>
+        <div class="text-3xl md:text-4xl font-display font-extrabold text-ember mb-1">12k+</div>
+        <div class="text-[11px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold">Sessions Played</div>
+      </div>
+      <div>
+        <div class="text-3xl md:text-4xl font-display font-extrabold text-ember mb-1">25+</div>
+        <div class="text-[11px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold">Mission Types</div>
+      </div>
+      <div>
+        <div class="text-3xl md:text-4xl font-display font-extrabold text-ember mb-1">4.9★</div>
+        <div class="text-[11px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold">Player Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== MISSION SPLIT ======== -->
+<section class="py-20 bg-white dark:bg-[#0E141B] border-y border-slate-200/80 dark:border-ember/15 transition-colors duration-300 relative overflow-hidden">
+  <div class="absolute -top-32 -left-32 w-96 h-96 bg-ember/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-ember/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="mission-split max-w-5xl mx-auto animate-fade-up">
+      <div class="mission-img">
+        <img src="assets/a1.jpg" alt="Paintball team in action" />
+      </div>
+      <div class="mission-text">
+        <span class="inline-flex items-center gap-2 text-ember px-0 py-1 text-xs font-bold uppercase tracking-[0.2em] mb-4">
+          <span class="w-8 h-px bg-ember"></span> Our Mission
+        </span>
+        <h2 class="text-3xl md:text-4xl font-display font-extrabold text-slate-900 dark:text-white leading-tight mb-4">
+          Real tactics. <span class="text-ember">Real adrenaline.</span> Zero compromise.
+        </h2>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
+          We built Crossfire for players who want more than a casual afternoon. Our zones are designed around real combat principles — cover, communication, and objective control. Every bunker, every sightline, and every mission is engineered to make you think, move, and play as a squad.
+        </p>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+          But adrenaline means nothing without safety. That's why we invest in pro-grade gear, daily chronograph checks, and on-field referees who know the game. You play hard. We keep it fair.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-ember/10 text-ember text-xs font-semibold tracking-wide">
+            <i class="fas fa-check-circle text-[11px]"></i> Safety First
+          </span>
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-ember/10 text-ember text-xs font-semibold tracking-wide">
+            <i class="fas fa-check-circle text-[11px]"></i> Squad Focused
+          </span>
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-ember/10 text-ember text-xs font-semibold tracking-wide">
+            <i class="fas fa-check-circle text-[11px]"></i> Pro Referees
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== TIMELINE ======== -->
+<section class="py-24 bg-slate-50 dark:bg-[#0B0F14] transition-colors duration-300 relative overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style="background-image: radial-gradient(circle at 20% 30%, #E63946 0.5px, transparent 0.5px); background-size: 24px 24px;"></div>
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="text-center mb-16 animate-fade-up">
+      <span class="inline-flex items-center gap-2 text-ember px-0 py-1.5 text-xs font-bold uppercase tracking-[0.2em] mb-4">
+        <span class="w-8 h-px bg-ember"></span> The Journey <span class="w-8 h-px bg-ember"></span>
+      </span>
+      <h2 class="text-4xl md:text-5xl font-display font-extrabold text-slate-900 dark:text-white leading-tight">
+        From one field to a <span class="text-ember">battle complex</span>
+      </h2>
+      <p class="text-slate-600 dark:text-slate-300 mt-3 max-w-xl mx-auto text-base">
+        Six years of building, expanding, and listening to our players.
+      </p>
+    </div>
+
+    <div class="timeline">
+      <!-- 2019 -->
+      <div class="timeline-item animate-fade-up" style="animation-delay: 0.1s;">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="text-ember font-display font-extrabold text-2xl block mb-1">2019</span>
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-2">The First Field</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Crossfire opens with a single speedball field and a rental shed. Ten markers, two referees, and a whole lot of ambition.</p>
+        </div>
+      </div>
+      <!-- 2020 -->
+      <div class="timeline-item animate-fade-up" style="animation-delay: 0.15s;">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="text-ember font-display font-extrabold text-2xl block mb-1">2020</span>
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-2">Woodland Expansion</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">We acquire five acres of forest and open the Woodland Zone — complete with natural cover, bunkers, and a stream.</p>
+        </div>
+      </div>
+      <!-- 2021 -->
+      <div class="timeline-item animate-fade-up" style="animation-delay: 0.2s;">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="text-ember font-display font-extrabold text-2xl block mb-1">2021</span>
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-2">Urban Combat Opens</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Our CQB mock city goes live — multi-level buildings, alleyways, and the toughest tactical gameplay in the region.</p>
+        </div>
+      </div>
+      <!-- 2022 -->
+      <div class="timeline-item animate-fade-up" style="animation-delay: 0.25s;">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="text-ember font-display font-extrabold text-2xl block mb-1">2022</span>
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-2">Pro Shop &amp; Armory</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">We launch our on-site pro shop and upgrade our rental fleet to tournament-grade markers. Real-time scoring is introduced.</p>
+        </div>
+      </div>
+      <!-- 2023 -->
+      <div class="timeline-item animate-fade-up" style="animation-delay: 0.3s;">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="text-ember font-display font-extrabold text-2xl block mb-1">2023</span>
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-2">Night Ops Launches</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Tracer rounds, LED markers, and floodlit combat. Night Ops becomes our most requested (and most limited) experience.</p>
+        </div>
+      </div>
+      <!-- 2024 -->
+      <div class="timeline-item animate-fade-up" style="animation-delay: 0.35s;">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="text-ember font-display font-extrabold text-2xl block mb-1">2024</span>
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-2">Tournament Hosting</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Crossfire hosts its first regional qualifier. We add spectator seating, a PA system, and full tournament infrastructure.</p>
+        </div>
+      </div>
+      <!-- 2025 -->
+      <div class="timeline-item animate-fade-up" style="animation-delay: 0.4s;">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="text-ember font-display font-extrabold text-2xl block mb-1">2025</span>
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-2">The Player Dashboard</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">We launch our digital player portal — track your stats, book sessions, and join the Crossfire community online.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== VALUES GRID ======== -->
+<section class="py-24 bg-white dark:bg-[#0E141B] border-y border-slate-200/80 dark:border-ember/15 transition-colors duration-300">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16 animate-fade-up">
+      <span class="inline-flex items-center gap-2 text-ember px-0 py-1.5 text-xs font-bold uppercase tracking-[0.2em] mb-4">
+        <span class="w-8 h-px bg-ember"></span> What We Stand For <span class="w-8 h-px bg-ember"></span>
+      </span>
+      <h2 class="text-4xl md:text-5xl font-display font-extrabold text-slate-900 dark:text-white leading-tight">
+        The Crossfire <span class="text-ember">code</span>
+      </h2>
+      <p class="text-slate-600 dark:text-slate-300 mt-3 max-w-xl mx-auto text-base">
+        Four principles that guide every decision we make — from field design to referee training.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+      <!-- Value 1 -->
+      <div class="value-card animate-fade-up" style="animation-delay: 0.1s;">
+        <div class="value-icon"><i class="fas fa-shield-halved"></i></div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Safety Without Compromise</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">ASTM-certified masks, daily chrono checks, and referees on every field. We never cut corners on protection.</p>
+      </div>
+      <!-- Value 2 -->
+      <div class="value-card animate-fade-up" style="animation-delay: 0.15s;">
+        <div class="value-icon"><i class="fas fa-crosshairs"></i></div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Tactical Authenticity</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Our fields are designed with real combat geometry in mind. Cover matters. Communication wins. Every game is a real challenge.</p>
+      </div>
+      <!-- Value 3 -->
+      <div class="value-card animate-fade-up" style="animation-delay: 0.2s;">
+        <div class="value-icon"><i class="fas fa-users"></i></div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Squad Over Solo</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">Paintball is a team sport. We build private staging areas, group packages, and missions that require real teamwork.</p>
+      </div>
+      <!-- Value 4 -->
+      <div class="value-card animate-fade-up" style="animation-delay: 0.25s;">
+        <div class="value-icon"><i class="fas fa-heart"></i></div>
+        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Community First</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">From first-timers to tournament veterans, everyone gets the same respect. We listen to our players and build what they ask for.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== TEAM ======== -->
+<section class="py-24 bg-slate-50 dark:bg-[#0B0F14] transition-colors duration-300 relative overflow-hidden">
+  <div class="absolute -top-32 -right-32 w-96 h-96 bg-ember/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="text-center mb-16 animate-fade-up">
+      <span class="inline-flex items-center gap-2 text-ember px-0 py-1.5 text-xs font-bold uppercase tracking-[0.2em] mb-4">
+        <span class="w-8 h-px bg-ember"></span> The Crew <span class="w-8 h-px bg-ember"></span>
+      </span>
+      <h2 class="text-4xl md:text-5xl font-display font-extrabold text-slate-900 dark:text-white leading-tight">
+        Meet the <span class="text-ember">operators</span>
+      </h2>
+      <p class="text-slate-600 dark:text-slate-300 mt-3 max-w-xl mx-auto text-base">
+        The referees, field designers, and gear specialists who make every session run.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+      <!-- Team 1 -->
+      <div class="team-card animate-fade-up" style="animation-delay: 0.1s;">
+        <div class="team-img">
+          <img src="assets/p1.jpg" alt="Marcus Cole" />
+        </div>
+        <div class="p-5">
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white">Marcus Cole</h3>
+          <p class="text-ember text-xs font-semibold tracking-wider uppercase mt-1">Founder &amp; Field Architect</p>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-2">20-year paintball veteran. Designed every zone from the ground up.</p>
+        </div>
+      </div>
+      <!-- Team 2 -->
+      <div class="team-card animate-fade-up" style="animation-delay: 0.15s;">
+        <div class="team-img">
+          <img src="assets/p2.jpg" alt="Elena Vasquez" />
+        </div>
+        <div class="p-5">
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white">Elena Vasquez</h3>
+          <p class="text-ember text-xs font-semibold tracking-wider uppercase mt-1">Head Referee</p>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-2">Certified safety officer. Runs every major tournament and Night Ops session.</p>
+        </div>
+      </div>
+      <!-- Team 3 -->
+      <div class="team-card animate-fade-up" style="animation-delay: 0.2s;">
+        <div class="team-img">
+          <img src="assets/p5.jpg" alt="Devon Park" />
+        </div>
+        <div class="p-5">
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white">Devon Park</h3>
+          <p class="text-ember text-xs font-semibold tracking-wider uppercase mt-1">Gear &amp; Armory Lead</p>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-2">Keeps 60+ markers chronographed, clean, and ready for every session.</p>
+        </div>
+      </div>
+      <!-- Team 4 -->
+      <div class="team-card animate-fade-up" style="animation-delay: 0.25s;">
+        <div class="team-img">
+          <img src="assets/p4.jpg" alt="Priya Nair" />
+        </div>
+        <div class="p-5">
+          <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white">Priya Nair</h3>
+          <p class="text-ember text-xs font-semibold tracking-wider uppercase mt-1">Community &amp; Events</p>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mt-2">Runs group bookings, birthday parties, and the Crossfire player league.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ======== ABOUT CTA ======== -->
+<section class="py-20 bg-gradient-to-r from-ember via-[#D90429] to-ember text-white">
+  <div class="container mx-auto px-6 text-center">
+    <div class="max-w-3xl mx-auto animate-fade-up">
+      <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-5">Come see it <span class="text-white">for yourself</span></h2>
+      <p class="text-white/90 text-lg mb-10 max-w-xl mx-auto font-light">The best way to understand Crossfire is to play it. Book a session and step onto the field.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="book.html" class="bg-white text-ember hover:bg-slate-100 px-8 py-3.5 rounded-lg font-bold shadow-lg hover:scale-105 transition inline-flex items-center gap-2 text-sm">
+          <i class="fas fa-calendar-check"></i> Book a Session
+        </a>
+        <a href="contact.html" class="border-2 border-white/80 text-white px-8 py-3.5 rounded-lg font-semibold hover:bg-white hover:text-ember transition inline-flex items-center gap-2 text-sm">
+          <i class="fas fa-envelope"></i> Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FOOTER (EXACT COPY FROM REFERENCE) ======== -->
+<footer class="bg-slate-950 text-slate-300 pt-16 pb-8 border-t border-slate-800 dark:border-ember/20">
+  <div class="container mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <!-- Col 1: Brand & Logo -->
+      <div class="text-center md:text-start">
+        <a href="index.html" class="inline-flex items-center justify-center md:justify-start gap-2.5 mb-6 group hover:opacity-90 transition">
+          <div class="w-10 h-10 bg-gradient-to-br from-ember to-[#D90429] rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition duration-300">
+            <svg viewBox="0 0 40 40" class="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="16" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.4" stroke-dasharray="4 2"/>
+              <line x1="20" y1="4" x2="20" y2="10" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="20" y1="30" x2="20" y2="36" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="4" y1="20" x2="10" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="30" y1="20" x2="36" y2="20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M20 12C15.6 12 12 15.6 12 20C12 22.8 13.4 25.2 15.6 26.6L20 30L24.4 26.6C26.6 25.2 28 22.8 28 20C28 15.6 24.4 12 20 12Z" fill="#FFFFFF"/>
+              <path d="M14.5 19C14.5 17.5 16 16.5 20 16.5C24 16.5 25.5 17.5 25.5 19C25.5 20.5 24 21 20 21C16 21 14.5 20.5 14.5 19Z" fill="#E63946"/>
+            </svg>
+          </div>
+          <span class="text-xl md:text-2xl font-display font-extrabold tracking-wider text-white leading-none">
+            CROSS<span class="text-ember">FIRE</span>
+          </span>
+        </a>
+        <p class="mb-5 text-slate-400 text-sm leading-relaxed">Six immersive tactical zones. Pro tournament-grade gear. Pure combat adrenaline guaranteed.</p>
+        <div class="flex justify-center md:justify-start gap-3">
+          <a href="#" class="social-icon-arena" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-icon-arena" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="social-icon-arena" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <!-- Col 2: Zones -->
+      <div class="text-center md:text-start">
+        <h4 class="text-ember font-bold text-sm mb-5 uppercase tracking-widest">Battle Zones</h4>
+        <ul class="space-y-2.5">
+          <li><a href="zones.html" class="hover:text-ember transition block text-slate-400 text-sm">Speedball Arena</a></li>
+          <li><a href="zones.html" class="hover:text-ember transition block text-slate-400 text-sm">Urban Combat CQB</a></li>
+          <li><a href="zones.html" class="hover:text-ember transition block text-slate-400 text-sm">Woodland Forest Zone</a></li>
+          <li><a href="zones.html" class="hover:text-ember transition block text-slate-400 text-sm">Night Ops Tactical</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Quick Links -->
+      <div class="text-center md:text-start">
+        <h4 class="text-ember font-bold text-sm mb-5 uppercase tracking-widest">Quick Links</h4>
+        <ul class="space-y-2.5">
+          <li><a href="about.html" class="hover:text-ember transition block text-slate-400 text-sm">About Arena</a></li>
+          <li><a href="packages.html" class="hover:text-ember transition block text-slate-400 text-sm">Packages &amp; Pricing</a></li>
+          <li><a href="book.html" class="hover:text-ember transition block text-slate-400 text-sm">Book a Session</a></li>
+          <li><a href="client.html" class="hover:text-ember transition block text-slate-400 text-sm">Player Dashboard</a></li>
+          <li><a href="admin.html" class="hover:text-ember transition block text-slate-400 text-sm">Admin Dashboard</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Visit & Contact -->
+      <div class="text-center md:text-start">
+        <h4 class="text-ember font-bold text-sm mb-5 uppercase tracking-widest">Visit Arena</h4>
+        <ul class="space-y-3">
+          <li class="flex justify-center md:justify-start gap-3 text-slate-400 text-sm"><i class="fas fa-map-marker-alt text-ember mt-0.5"></i><span>4500 Tactical Way, Combat District</span></li>
+          <li class="flex justify-center md:justify-start gap-3 text-slate-400 text-sm"><i class="fas fa-phone text-ember"></i><span>(555) 727-4SPA</span></li>
+          <li class="flex justify-center md:justify-start gap-3 text-slate-400 text-sm"><i class="fas fa-envelope text-ember"></i><span>hello@crossfirearena.com</span></li>
+          <li class="flex justify-center md:justify-start gap-3 text-slate-400 text-sm"><i class="fas fa-clock text-ember"></i><span>Mon–Fri 9am – 7pm · Sat 10am – 4pm</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+      <p>&copy; 2026 CROSSFIRE. <i class="fas fa-heart text-ember mx-1"></i> Dominate the field.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ======== SCRIPTS (same theme/rtl/mobile) ======== -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Theme toggle (Light / Dark)
+    const themeBtns = document.querySelectorAll('#theme-toggle, #mobile-theme-toggle');
+
+    function applyTheme(isDark) {
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    themeBtns.forEach(btn => {
+      btn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isDark = !document.documentElement.classList.contains('dark');
+        applyTheme(isDark);
+      });
+    });
+
+    // RTL Toggle
+    function setRTL(isRTL) {
+      const html = document.documentElement;
+      if (isRTL === 'rtl' || isRTL === true) {
+        html.setAttribute('dir', 'rtl');
+        localStorage.setItem('dir', 'rtl');
+      } else {
+        html.setAttribute('dir', 'ltr');
+        localStorage.setItem('dir', 'ltr');
+      }
+    }
+
+    const savedDir = localStorage.getItem('dir');
+    if (savedDir === 'rtl') {
+      document.documentElement.setAttribute('dir', 'rtl');
+    } else {
+      document.documentElement.setAttribute('dir', 'ltr');
+    }
+
+    const rtlBtn = document.getElementById('rtl-toggle');
+    if (rtlBtn) {
+      rtlBtn.addEventListener('click', () => {
+        const currentDir = document.documentElement.getAttribute('dir');
+        setRTL(currentDir === 'rtl' ? 'ltr' : 'rtl');
+      });
+    }
+
+    const mobileRtlBtn = document.getElementById('mobile-rtl-toggle');
+    if (mobileRtlBtn) {
+      mobileRtlBtn.addEventListener('click', () => {
+        const currentDir = document.documentElement.getAttribute('dir');
+        setRTL(currentDir === 'rtl' ? 'ltr' : 'rtl');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileToggle = document.getElementById('mobile-toggle');
+        if (mobileMenu && mobileMenu.classList.contains('open')) {
+          mobileMenu.classList.remove('open');
+          if (mobileToggle && mobileToggle.querySelector('i')) {
+            mobileToggle.querySelector('i').classList.remove('fa-times');
+            mobileToggle.querySelector('i').classList.add('fa-bars');
+          }
+        }
+      });
+    }
+
+    // Mobile menu toggle
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileToggle && mobileMenu) {
+      mobileToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('open');
+        const icon = mobileToggle.querySelector('i');
+        if (mobileMenu.classList.contains('open')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        } else {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      });
+
+      mobileMenu.querySelectorAll('a:not(#mobile-rtl-toggle)').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          if (mobileToggle.querySelector('i')) {
+            mobileToggle.querySelector('i').classList.remove('fa-times');
+            mobileToggle.querySelector('i').classList.add('fa-bars');
+          }
+        });
+      });
+    }
+  });
+</script>
+</body>
+</html>
